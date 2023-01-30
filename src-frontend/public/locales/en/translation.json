@@ -1,0 +1,166 @@
+{
+    "common": {
+        "authenticating": "Authenticating...",
+        "cancel": "Cancel",
+        "create": "Create",
+        "createNew": "Create New",
+        "delete": "Delete",
+        "deleteConfirmation": {
+            "title": "Delete {{ type }} {{ name }}",
+            "content": "Are you sure? This cannot be undone!",
+            "notification": "{{ type }} {{ name }} successfully deleted",
+            "failNotification": "Unable to delete {{ type }} {{ name }}"
+        },
+        "edit": "Edit",
+        "saveChanges": "Save",
+        "start": "Start",
+        "stop": "Stop",
+        "yes": "Yes"
+    },
+    "login": {
+        "usernameLabel": "Username",
+        "passwordLabel": "Password",
+        "loginButton": "Login",
+        "errors": {
+            "usernameRequired": "Username is required",
+            "passwordRequired": "Password is required"
+        }
+    },
+    "navigation": {
+        "home": "Home",
+        "categories": "Categories",
+        "configuration": "Configuration",
+        "history": "History",
+        "projects": "Projects",
+        "records": "Records",
+        "reporting": "Reporting",
+        "settings": "Settings",
+        "timecards": "Timecards"
+    },
+    "categories": {
+        "createButton": "Create Category",
+        "createDialog": {
+            "descriptionLabel": "Description",
+            "nameLabel": "Name",
+            "subTitle": "Category"
+        },
+        "createSuccessNotification": "Successfully create new category",
+        "table": {
+            "descriptionLabel": "Description",
+            "nameLabel": "Category",
+            "numRecordsLabel": "Number of Records",
+            "unused": "Never used"
+        },
+        "updateSuccessNotification": "Successfully updated category"
+    },
+    "errors": {
+        "404text": "We've looked everywhere, but the page was not found..."
+    },
+    "projects": {
+        "createButton": "Create Project",
+        "createDialog": {
+            "descriptionLabel": "Description",
+            "categoryLabel": "Category",
+            "categoryPlaceholder": "Select category",
+            "nameLabel": "Name",
+            "subTitle": "Project"
+        },
+        "createSuccessNotification": "Successfully create new project",
+        "table": {
+            "categoryLabel": "Category",
+            "descriptionLabel": "Description",
+            "nameLabel": "Project",
+            "numRecordsLabel": "Number of Records",
+            "unused": "Never used"
+        },
+        "updateSuccessNotification": "Successfully updated project"
+    },
+    "records": {
+        "approveAction": "Approve",
+        "approvedConfirmation": {
+            "content": "Are you sure?",
+            "failNotification": "Error updating time record.",
+            "notification": "Time record successfully updated.",
+            "title": "{{action}} the selected time record"
+        },
+        "createButton": "Create Record",
+        "createDialog": {
+            "approvedLabel": "Approved",
+            "categoryLabel": "Category",
+            "categoryPlaceholder": "Select category",
+            "projectLabel": "Project",
+            "projectPlaceholder": "Select project",
+            "startTimeLabel": "Start Time",
+            "stopTimeLabel": "Stop Time",
+            "subTitle": "Time Record"
+        },
+        "createSuccessNotification": "Successfully create new time record",
+        "declineAction": "Decline",
+        "startConfirmation": {
+            "content": "This will create a new time record, are you sure?",
+            "failNotification": "Unable to create new record",
+            "title": "Restart {{project}} at {{start_time}}"
+        },
+        "stopConfirmation": {
+            "content": "Are you sure you want to stop?",
+            "failNotification": "Unable to record stop time",
+            "title": "Stop at {{stop_time}}",
+            "notification": "Successfully updated time record" 
+        },
+        "table": {
+            "dateLabel": "Date",
+            "durationLabel": "Duration",
+            "projectLabel": "Project",
+            "startTimeLabel": "Start Time",
+            "stopTimeLabel": "Stop Time"
+        },
+        "updateSuccessNotification": "Successfully updated time record"
+    },
+  "settings": {
+      "backupRestoreDrawerTitle": "Backup / Restore",
+      "backup": {
+          "description": "Export as JSON",
+          "downloadButton": "Download",
+          "title": "Backup"
+      },
+      "dialog": {
+          "advanced": {
+              "description": "Be careful, here be dragons...",
+              "title": "Advanced Settings"
+          },
+          "alignTimestampsLabel": "Align timestamps",
+          "general": {
+              "description": "",
+              "title": "General Settings"
+          },
+          "retentionPeriodDaysLabel": "Data retention period (days)"
+      },
+      "hideAdvancedButtonLabel": "Hide Advanced Settings",
+      "pageTitle": "Settings",
+      "restore": {
+          "errorImporting": "Error restoring configuration",
+          "errorLoading": "Error loading {{ file }}",
+          "description": "Import from JSON",
+          "showUploadButton": "Upload",
+          "title": "Restore"
+      },
+      "restoreDialog": {
+          "configuration": "Upload JSON file",
+          "restore": "Restore",
+          "restoreLabel1": "Drop JSON file here",
+          "uploadButton": "Upload"
+      },
+      "saveButton": "Save",
+      "saveFailNotification": "Failed to save settings",
+      "saveProgressNotification": "Saving...",
+      "saveSuccessNotification": "Settings successfully updated",
+      "showAdvancedButtonLabel": "Show Advanced Settings",
+      "showDrawerButtonLabel": "Backup/Restore"
+  },
+  "timecards": {
+      "categoryLabel": "Category",
+      "projectLabel": "Project",
+      "tableFooter": "{{startDate}} - {{endDate}} (Total: {{total}})",
+      "tableTitle": "Week {{weekNumber}}"
+  }
+}

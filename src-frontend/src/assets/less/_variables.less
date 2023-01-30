@@ -1,0 +1,83 @@
+@primary-color: @cyan;
+@secondary-color: @orange;
+@error-color: @red;
+@highlight-color: @red;
+@warning-color: @yellow;
+@success-color: @green;
+@processing-color: @primary-color;
+
+// general
+@body-font-family: "Source Sans Pro", sans-serif;
+@body-font-size: 14px;
+@body-font-size-small: 11px;
+@body-font-size-large: 18px;
+@text-color-secondary: fade(@secondary-color, 75%);
+@disabled-color: rgba(@foreground-light, 0.35);
+@disabled-bg: @background-primary;
+@border-color-split: @background-secondary;
+@item-hover-bg: fade(@background-secondary, 20%);
+@background-color-light: fade(@background-secondary, 40%);
+@text-color: @foreground-primary;
+@wait-icon-color: fade(@foreground-light, 64%);
+
+// layout
+@layout-body-background: @background-primary;
+@layout-header-background: @background-secondary;
+@component-background: @background-primary;
+@layout-header-height: 48px;
+@card-padding-base: 16px;
+
+// tables
+@table-selected-row-bg: @background-secondary;
+@table-expanded-row-bg: @background-primary;
+@table-padding-vertical: 6px;
+@table-header-bg: @background-primary;
+@table-bg: @background-primary;
+@table-selected-row-hover-bg: @background-secondary;
+@table-row-hover-bg: @background-secondary;
+
+// buttons
+@btn-height-sm: 42px;
+@btn-success-bg: @success-color;
+@btn-success-border: @success-color;
+@btn-success-color: @foreground-light;
+@btn-primary-color: @component-background;
+
+// forms
+@input-addon-bg: @input-bg;
+@checkbox-check-color: @foreground-light;
+@select-background: @input-bg;
+@input-placeholder-color: @foreground-dark;
+@form-item-margin-bottom: 28px;
+
+// modal
+@modal-header-bg: @component-background;
+@modal-content-bg: @component-background;
+@modal-mask-bg: fade(@black, 80%);
+
+// menu
+@menu-dark-bg: @background-secondary;
+@menu-dark-item-active-bg: @background-secondary;
+@menu-dark-selected-item-text-color: @foreground-light;
+@menu-dark-submenu-bg: @background-secondary;
+@menu-item-height: 36px;
+@menu-inline-toplevel-item-height: 32px;
+
+// main header
+@main-header-bg: @background-primary;
+@main-header-text-color: @secondary-color;
+@main-header-height: 64px;
+
+// misc
+@drawer-bg: @component-background;
+@collapse-header-bg: @component-background;
+
+@tag-default-bg: @background-secondary;
+@collapse-header-bg: #262629;
+
+@popover-background: @background-primary;
+@popover-bg: @popover-background;
+@tooltip-bg: @background-primary;
+
+@animation-duration-slow: 0.1s;
+@animation-duration-base: 0.1s;

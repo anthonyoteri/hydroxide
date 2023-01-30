@@ -1,0 +1,126 @@
+.ant-menu-item a,
+.ant-menu-submenu-title {
+  font-weight: 600;
+}
+
+.nav-current-user {
+  margin: 4px;
+  border-radius: 2px;
+
+  .dropdown-trigger {
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: @body-font-size;
+    background: @background-secondary;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 16px;
+    transition: background-color 0.3s;
+  }
+
+  [aria-label="user"] {
+    margin-right: 4px;
+  }
+
+  .ant-dropdown-link {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &:hover {
+      background: @background-primary;
+    }
+  }
+}
+
+.ant-menu-inline > .ant-menu-item-cdn {
+  height: 28px;
+  line-height: 28px;
+}
+
+.ant-layout-sider-children {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-link {
+  display: flex;
+}
+
+.ant-menu-item.ant-menu-item-only-child .anticon-right {
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.header-right-actions {
+  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 0 0 auto;
+
+  .icon {
+    text-align: center;
+    width: 32px;
+  }
+
+  .nav-current-user {
+    width: auto;
+  }
+}
+
+.ant-menu-item-group {
+  margin-bottom: 8px;
+}
+
+.ant-menu-dark .ant-menu-item-group-title {
+  color: @foreground-secondary;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: @body-font-size-small;
+  padding: 8px 24px 0 24px;
+
+  .anticon {
+    margin-right: 4px;
+  }
+}
+
+.ant-menu-item-group-title .anticon {
+  display: none;
+}
+
+.menu-item-heading {
+  font-size: @body-font-size;
+  color: @text-color-secondary;
+  padding: 16px 24px;
+  background: @background-secondary;
+}
+
+.ant-layout-sider {
+  height: 100%;
+}
+
+.ant-layout-sider-children {
+  height: 100%;
+}
+.ant-menu-root {
+  overflow-y: auto;
+}
+
+.ant-menu-item.ant-menu-item-selected {
+  &:after {
+    display: block;
+    height: 100%;
+    content: "";
+    width: 7px;
+    background: @primary-color;
+    margin-right: 2px;
+  }
+}
