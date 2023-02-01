@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Modal } from "antd";
 import { Formik, FormikHelpers } from "formik";
-import { FC, useState } from "react";
-import { Project, ProjectDraft } from "../../api/TimeReporting";
+import React, { FC, useState } from "react";
+import { Project, ProjectDraft } from "../../bindings";
 import { ProjectForm, ProjectFormData } from "./ProjectForm";
 import useModalForm from "../../hooks/useModalForm";
 import { parseErrors } from "../../utils/formHelpers";
@@ -23,9 +23,10 @@ export const ProjectDialog: FC<Props> = (props: Props) => {
   const { t } = useTranslation();
   const { onOk, onComplete, onCancel, type } = props;
   const [formData] = useState<ProjectFormData>({
-    category: props.project.category !== 0 ? props.project.category : undefined,
+    category:
+      props.project.category !== "" ? props.project.category : undefined,
     name: props.project.name,
-    description: props.project.description,
+    description: props.project.description || "",
   });
   const { isVisible, isSaving, error, setStatus, setError, handleAfterClose } =
     useModalForm({ onCancel: onCancel, onComplete: onComplete });

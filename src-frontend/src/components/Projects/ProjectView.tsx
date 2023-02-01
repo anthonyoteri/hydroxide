@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Project, ProjectDraft } from "../../api/TimeReporting";
+import { Project, ProjectDraft } from "../../bindings";
 
 import * as actions from "../../store/projects";
 
@@ -15,7 +15,7 @@ import { ProjectDialog } from "./ProjectDialog";
 
 const emptyProject = (): ProjectDraft => {
   return {
-    category: 0,
+    category: "",
     name: "",
     description: "",
   };
@@ -31,7 +31,7 @@ export const ProjectView: FC = () => {
   const [editingProject, setEditingProject] = useState<Project | undefined>(
     undefined
   );
-  const [redirectProject, setRedirectProject] = useState<number | null>(null);
+  const [redirectProject, setRedirectProject] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(actions.fetchProjects());
@@ -89,7 +89,7 @@ export const ProjectView: FC = () => {
       content: t("common.deleteConfirmation.content"),
       async onOk() {
         try {
-          await dispatch(actions.deleteProject(project.id as number));
+          await dispatch(actions.deleteProject(project.id as string));
           message.success(
             t("common.deleteConfirmation.notification", {
               type: "Project",

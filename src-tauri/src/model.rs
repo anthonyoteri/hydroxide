@@ -8,12 +8,15 @@
 use crate::ctx::Ctx;
 use crate::event::HubEvent;
 use serde::Serialize;
+use ts_rs::TS;
 
 mod base;
+mod category;
 mod project;
 
 // - Re-exports
-pub use project::*;
+pub use category::{Category, CategoryForCreate, CategoryForUpdate, CategoryFilter, CategoryBmc};
+pub use project::{Project, ProjectForCreate, ProjectForUpdate, ProjectFilter, ProjectBmc};
 
 fn fire_model_event<D>(ctx: &Ctx, entity: &str, action: &str, data: D)
 where
@@ -27,7 +30,8 @@ where
     })
 }
 
-#[derive(Serialize, Clone)]
+#[derive(Serialize, TS, Clone)]
+#[ts(export, export_to = "../src-frontend/src/bindings/")]
 pub struct ModelMutateResultData {
     pub id: String,
 }

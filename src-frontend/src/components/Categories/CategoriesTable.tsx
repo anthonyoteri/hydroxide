@@ -5,10 +5,10 @@ import {
 } from "@ant-design/icons";
 import { ColumnProps } from "antd/lib/table";
 import { Table, Menu, Button, Dropdown } from "antd";
-import { FC } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Category } from "../../api/TimeReporting";
+import { Category } from "../../bindings";
 
 type Props = {
   categories: Category[];
@@ -35,9 +35,6 @@ export const CategoriesTable: FC<Props> = (props: Props) => {
           key={`category_${index}_delete`}
           onClick={() => onDelete(category)}
           data-testid={`category_${index}_delete`}
-          disabled={
-            category.num_records && category.num_records >= 0 ? true : false
-          }
         >
           <DeleteOutlined />
           {t("common.delete")}
@@ -58,17 +55,6 @@ export const CategoriesTable: FC<Props> = (props: Props) => {
         );
       },
       sorter: (a: Category, b: Category) => a.name.localeCompare(b.name),
-    },
-    {
-      title: () => <>{t("categories.table.numRecordsLabel")}</>,
-      className: "column--num-records",
-      render: (value: any, category: Category, index: number) => {
-        return (
-          <span>{category.num_records || t("categories.table.unused")}</span>
-        );
-      },
-      sorter: (a: Category, b: Category) =>
-        (a.num_records || 0) - (b?.num_records || 0),
     },
     {
       title: () => <>{t("categories.table.descriptionLabel")}</>,

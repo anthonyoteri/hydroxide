@@ -1,11 +1,11 @@
 import { FormikProps } from "formik";
-import { FC } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { FormikField, FormikFieldInput } from "../Shared/Form/FormikField";
 import { CategorySelect } from "./CategorySelect";
 
 export interface ProjectFormData {
-  category: number | undefined;
+  category: string | undefined;
   name: string;
   description: string;
 }

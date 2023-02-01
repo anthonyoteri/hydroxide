@@ -5,10 +5,10 @@ import {
 } from "@ant-design/icons";
 import { ColumnProps } from "antd/lib/table";
 import { Table, Menu, Button, Dropdown } from "antd";
-import { FC } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Project } from "../../api/TimeReporting";
+import { Project } from "../../bindings";
 import { selectAllCategories } from "../../store/categories";
 import { useSelector } from "react-redux";
 
@@ -38,9 +38,6 @@ export const ProjectTable: FC<Props> = (props: Props) => {
           key={`project_${index}_delete`}
           onClick={() => onDelete(project)}
           data-testid={`project_${index}_delete`}
-          disabled={
-            project.num_records && project.num_records >= 0 ? true : false
-          }
         >
           <DeleteOutlined />
           {t("common.delete")}
@@ -77,15 +74,6 @@ export const ProjectTable: FC<Props> = (props: Props) => {
           categories.find((c) => c.id === b.category)?.name || "";
         return aCategory.localeCompare(bCategory);
       },
-    },
-    {
-      title: () => <>{t("projects.table.numRecordsLabel")}</>,
-      className: "column--num-records",
-      render: (value: any, project: Project, index: number) => {
-        return <span>{project.num_records || t("projects.table.unused")}</span>;
-      },
-      sorter: (a: Project, b: Project) =>
-        (a.num_records || 0) - (b?.num_records || 0),
     },
     {
       title: () => <>{t("projects.table.descriptionLabel")}</>,

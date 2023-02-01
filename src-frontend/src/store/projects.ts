@@ -1,12 +1,12 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import * as api from "../api/TimeReporting/Projects";
-import { Project } from "../api/TimeReporting";
+import { Project, ProjectDraft, ModelMutateResultData } from "../bindings";
+import { project_fmc } from "../model";
 import { AppThunk } from "./index";
 import { ApplicationState } from "./rootReducer";
 
 interface ProjectState {
-  allIds: number[];
-  byId: Record<number, Project>;
+  allIds: string[];
+  byId: Record<string, Project>;
 }
 
 const initialState: ProjectState = {
@@ -36,7 +36,7 @@ export default projectReducer.reducer;
 export const fetchProjects =
   (): AppThunk<Promise<void>> => async (dispatch) => {
     try {
-      const projects = await api.listProjects();
+      const projects = await project_fmc.list();
       dispatch(fetchSuccess(projects));
     } catch (err) {
       console.error(err);
@@ -46,10 +46,10 @@ export const fetchProjects =
   };
 
 export const deleteProject =
-  (id: number): AppThunk<Promise<void>> =>
+  (id: string): AppThunk<Promise<void>> =>
   async (dispatch) => {
     try {
-      await api.deleteProject(id);
+      await project_fmc.delete(id);
       dispatch(fetchProjects());
     } catch (err) {
       throw err;
@@ -57,10 +57,10 @@ export const deleteProject =
   };
 
 export const createProject =
-  (body: Project): AppThunk<Promise<Project>> =>
+  (body: ProjectDraft): AppThunk<Promise<ModelMutateResultData>> =>
   async (dispatch) => {
     try {
-      const newProject = await api.createProject(body);
+      let newProject = await project_fmc.create(body);
       await dispatch(fetchProjects());
       return newProject;
     } catch (err) {
@@ -69,10 +69,10 @@ export const createProject =
   };
 
 export const patchProject =
-  (id: number, body: Partial<Project>): AppThunk<Promise<void>> =>
+  (id: string, body: ProjectDraft): AppThunk<Promise<void>> =>
   async (dispatch) => {
     try {
-      await api.patchProject(id, body);
+      await project_fmc.update(id, body);
       return dispatch(fetchProjects());
     } catch (err) {
       throw err;
@@ -88,7 +88,7 @@ export const selectAllProjects = createSelector(
 export const selectProjectsForCategory = createSelector(
   [
     selectAllProjects,
-    (state: ApplicationState, category: number | undefined) => category,
+    (state: ApplicationState, category: string | undefined) => category,
   ],
   (projects, category) =>
     category

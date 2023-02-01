@@ -5,7 +5,7 @@ use super::{base, ModelMutateResultData};
 use crate::ctx::Ctx;
 use crate::prelude::*;
 use crate::store::{Createable, Filterable, Patchable};
-use crate::utils::{map, XTake, XTakeVal};
+use crate::utils::{map, XTakeVal, XTake};
 
 use serde::{Deserialize, Serialize};
 use serde_with_macros::skip_serializing_none;
@@ -16,70 +16,57 @@ use ts_rs::TS;
 
 #[derive(Serialize, TS, Debug, Clone)]
 #[ts(export, export_to = "../src-frontend/src/bindings/")]
-pub struct Project {
+pub struct Category {
     pub id: String,
     pub name: String,
-    pub category: String,
-    pub description: Option<String>,
+    pub description: String,
     pub ctime: String,
 }
 
-impl TryFrom<Object> for Project {
+impl TryFrom<Object> for Category {
     type Error = Error;
 
     fn try_from(mut val: Object) -> Result<Self> {
         Ok(Self {
             id: val.x_take_val("id")?,
             name: val.x_take_val("name")?,
-            category: val.x_take_val("category")?,
-            description: val.x_take("description")?,
+            description: val.x_take_val("description")?,
             ctime: val.x_take_val::<i64>("ctime")?.to_string(),
         })
     }
 }
 
-#[derive(Deserialize, TS, Debug, Clone)]
-#[ts(export, export_to = "../src-frontend/src/bindings/")]
-pub struct ProjectForCreate {
+#[derive(Deserialize, Debug, Clone)]
+pub struct CategoryForCreate {
     pub name: String,
-    pub category: String,
     pub description: Option<String>,
 }
 
-impl From<ProjectForCreate> for Value {
-    fn from(val: ProjectForCreate) -> Self {
+impl From<CategoryForCreate> for Value {
+    fn from(val: CategoryForCreate) -> Self {
         let mut data = BTreeMap::new();
         data.insert("name".into(), val.name.into());
-        data.insert("category".into(), val.category.into());
-
-        if let Some(desc) = val.description {
-            data.insert("description".into(), desc.into());
-        }
+        data.insert("description".into(), val.description.into());
         data.into()
     }
 }
 
-impl Createable for ProjectForCreate {}
+impl Createable for CategoryForCreate {}
 
 #[skip_serializing_none]
-#[derive(Deserialize, TS, Debug, Clone)]
-#[ts(export, export_to = "../src-frontend/src/bindings/")]
-pub struct ProjectForUpdate {
+#[derive(Deserialize, Debug, Clone)]
+pub struct CategoryForUpdate {
     pub id: String,
     pub name: Option<String>,
-    pub category: Option<String>,
     pub description: Option<String>,
 }
 
-impl From<ProjectForUpdate> for Value {
-    fn from(val: ProjectForUpdate) -> Self {
+impl From<CategoryForUpdate> for Value {
+    fn from(val: CategoryForUpdate) -> Self {
         let mut data = BTreeMap::new();
         data.insert("id".into(), val.id.into());
         if let Some(name) = val.name {
             data.insert("name".into(), name.into());
-        }
-        if let Some(category) = val.category {
-            data.insert("category".into(), category.into());
         }
         if let Some(description) = val.description {
             data.insert("description".into(), description.into());
@@ -88,15 +75,15 @@ impl From<ProjectForUpdate> for Value {
     }
 }
 
-impl Patchable for ProjectForUpdate {}
+impl Patchable for CategoryForUpdate {}
 
 #[derive(Deserialize, Debug, Clone)]
-pub struct ProjectFilter {
+pub struct CategoryFilter {
     name: Option<String>,
 }
 
-impl From<ProjectFilter> for Value {
-    fn from(val: ProjectFilter) -> Self {
+impl From<CategoryFilter> for Value {
+    fn from(val: CategoryFilter) -> Self {
         Value::Object(
             map![
                 "name".into() => val.name.into(),
@@ -106,25 +93,25 @@ impl From<ProjectFilter> for Value {
     }
 }
 
-impl Filterable for ProjectFilter {}
+impl Filterable for CategoryFilter {}
 
-pub struct ProjectBmc;
+pub struct CategoryBmc;
 
-impl ProjectBmc {
-    const ENTITY: &'static str = "project";
+impl CategoryBmc {
+    const ENTITY: &'static str = "category";
 
-    pub async fn get(ctx: Arc<Ctx>, id: &str) -> Result<Project> {
+    pub async fn get(ctx: Arc<Ctx>, id: &str) -> Result<Category> {
         base::get(ctx, Self::ENTITY, id).await
     }
 
-    pub async fn create(ctx: Arc<Ctx>, data: ProjectForCreate) -> Result<ModelMutateResultData> {
+    pub async fn create(ctx: Arc<Ctx>, data: CategoryForCreate) -> Result<ModelMutateResultData> {
         base::create(ctx, Self::ENTITY, data).await
     }
 
     pub async fn update(
         ctx: Arc<Ctx>,
         id: &str,
-        data: ProjectForUpdate,
+        data: CategoryForUpdate,
     ) -> Result<ModelMutateResultData> {
         base::update(ctx, Self::ENTITY, id, data).await
     }
@@ -133,7 +120,7 @@ impl ProjectBmc {
         base::delete(ctx, Self::ENTITY, id).await
     }
 
-    pub async fn list(ctx: Arc<Ctx>, filter: Option<ProjectFilter>) -> Result<Vec<Project>> {
+    pub async fn list(ctx: Arc<Ctx>, filter: Option<CategoryFilter>) -> Result<Vec<Category>> {
         base::list(ctx, Self::ENTITY, filter).await
     }
 }

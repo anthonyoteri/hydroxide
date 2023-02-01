@@ -1,7 +1,7 @@
 {
   "build": {
     "beforeBuildCommand": "cd src-frontend && npm install && npm run build",
-    "beforeDevCommand": "cd src-frontend && npm install && npm start",
+    "beforeDevCommand": "cd src-frontend && npm install && npm start | cat",
     "devPath": "http://localhost:3000",
     "distDir": "../src-frontend/build"
   },

@@ -1,8 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Category, CategoryDraft } from "../../api/TimeReporting";
-
+import { Category, CategoryDraft } from "../../bindings";
 import * as actions from "../../store/categories";
 
 import { CategoriesTable } from "./CategoriesTable";
@@ -30,13 +29,13 @@ export const CategoryView: FC = () => {
   const [editingCategory, setEditingCategory] = useState<Category | undefined>(
     undefined
   );
-  const [redirectCategory, setRedirectCategory] = useState<number | null>(null);
+  const [redirectCategory, setRedirectCategory] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(actions.fetchCategories());
   }, [dispatch]);
 
-  const createCategory = async (category: Category) => {
+  const createCategory = async (category: CategoryDraft) => {
     const newCategory = await dispatch(actions.createCategory(category));
     setRedirectCategory(newCategory.id);
     return Promise.resolve();
@@ -68,7 +67,7 @@ export const CategoryView: FC = () => {
     }
   };
 
-  const updateCategory = (category: Category) => {
+  const updateCategory = (category: CategoryDraft) => {
     return dispatch(actions.patchCategory(editingCategory!.id, category));
   };
 
@@ -88,7 +87,7 @@ export const CategoryView: FC = () => {
       content: t("common.deleteConfirmation.content"),
       async onOk() {
         try {
-          await dispatch(actions.deleteCategory(category.id as number));
+          await dispatch(actions.deleteCategory(category.id));
           message.success(
             t("common.deleteConfirmation.notification", {
               type: "Category",

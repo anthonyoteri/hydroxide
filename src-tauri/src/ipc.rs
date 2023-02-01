@@ -12,11 +12,13 @@
 //!   - This module re-exports the appropriate sub-module cnstructs as their heirarchy is irrelevant to callers.
 //!
 
+mod category;
 mod params;
 mod project;
 mod response;
 
 // -- Re-exports
-pub use params::*;
-pub use project::*;
+pub use category::{create_category, update_category, get_category, list_categories, delete_category};
+pub use params::{CreateParams, UpdateParams, GetParams, ListParams, DeleteParams};
+pub use project::{create_project, update_project, get_project, list_projects, delete_project};
 pub use response::*;

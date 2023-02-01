@@ -1,12 +1,13 @@
 import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
-import * as api from "../api/TimeReporting/Categories";
-import { Category } from "../api/TimeReporting";
+import { category_fmc } from "../model";
+import { Category } from "../bindings/Category";
 import { AppThunk } from "./index";
 import { ApplicationState } from "./rootReducer";
+import { CategoryDraft, ModelMutateResultData } from "../bindings";
 
 interface CategoryState {
-  allIds: number[];
-  byId: Record<number, Category>;
+  allIds: string[];
+  byId: Record<string, Category>;
 }
 
 const initialState: CategoryState = {
@@ -36,7 +37,7 @@ export default categoryReducer.reducer;
 export const fetchCategories =
   (): AppThunk<Promise<void>> => async (dispatch) => {
     try {
-      const categories = await api.listCategories();
+      const categories = await category_fmc.list();
       dispatch(fetchSuccess(categories));
     } catch (err) {
       console.error(err);
@@ -46,10 +47,10 @@ export const fetchCategories =
   };
 
 export const deleteCategory =
-  (id: number): AppThunk<Promise<void>> =>
+  (id: string): AppThunk<Promise<void>> =>
   async (dispatch) => {
     try {
-      await api.deleteCategory(id);
+      await category_fmc.delete(id);
       dispatch(fetchCategories());
     } catch (err) {
       throw err;
@@ -57,22 +58,22 @@ export const deleteCategory =
   };
 
 export const createCategory =
-  (body: Category): AppThunk<Promise<Category>> =>
+  (body: CategoryDraft): AppThunk<Promise<ModelMutateResultData>> =>
   async (dispatch) => {
     try {
-      const newCategory = await api.createCategory(body);
+      const newId = await category_fmc.create(body);
       await dispatch(fetchCategories());
-      return newCategory;
+      return newId;
     } catch (err) {
       throw err;
     }
   };
 
 export const patchCategory =
-  (id: number, body: Partial<Category>): AppThunk<Promise<void>> =>
+  (id: string, body: CategoryDraft): AppThunk<Promise<void>> =>
   async (dispatch) => {
     try {
-      await api.patchCategory(id, body);
+      await category_fmc.update(id, body);
       return dispatch(fetchCategories());
     } catch (err) {
       throw err;

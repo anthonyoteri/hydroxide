@@ -3,7 +3,10 @@
     windows_subsystem = "windows"
 )]
 
-use crate::ipc::{create_project, delete_project, get_project, list_projects, update_project};
+use crate::ipc::{
+    create_category, create_project, delete_category, delete_project, get_category, get_project,
+    list_categories, list_projects, update_category, update_project,
+};
 
 use crate::prelude::*;
 
@@ -24,12 +27,15 @@ async fn main() -> Result<()> {
     let store = Store::new().await?;
     let store = Arc::new(store);
 
-    // -- For DEV ONLY
-    seed_store(store.clone()).await?;
-
     tauri::Builder::default()
         .manage(store)
         .invoke_handler(tauri::generate_handler![
+            // Category
+            get_category,
+            create_category,
+            update_category,
+            delete_category,
+            list_categories,
             // Project
             get_project,
             create_project,
@@ -39,25 +45,6 @@ async fn main() -> Result<()> {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
-
-    Ok(())
-}
-
-/// Only use while developing.
-async fn seed_store(store: Arc<Store>) -> Result<()> {
-    let ps = ["A", "B"].into_iter().map(|k| {
-        (
-            k,
-            ProjectForCreate {
-                name: f!("Project {k}"),
-                description: f!("Some description of project {k}"),
-            },
-        )
-    });
-
-    for (k, project) in ps {
-        let _project_id = store.create::<ProjectForCreate>("project", project).await?;
-    }
 
     Ok(())
 }

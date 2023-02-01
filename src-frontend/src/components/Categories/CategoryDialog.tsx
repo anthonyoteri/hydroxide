@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import { Modal } from "antd";
 import { Formik, FormikHelpers } from "formik";
-import { FC, useState } from "react";
-import { Category, CategoryDraft } from "../../api/TimeReporting";
+import React, { FC, useState } from "react";
+import { Category, CategoryDraft } from "../../bindings";
 import { CategoryForm, CategoryFormData } from "./CategoryForm";
 import useModalForm from "../../hooks/useModalForm";
 import { parseErrors } from "../../utils/formHelpers";
@@ -23,8 +23,8 @@ export const CategoryDialog: FC<Props> = (props: Props) => {
   const { t } = useTranslation();
   const { onOk, onComplete, onCancel, type } = props;
   const [formData] = useState<CategoryFormData>({
-    name: props.category.name,
-    description: props.category.description,
+    name: props.category.name || "",
+    description: props.category.description || "",
   });
   const { isVisible, isSaving, error, setStatus, setError, handleAfterClose } =
     useModalForm({ onCancel: onCancel, onComplete: onComplete });
@@ -79,7 +79,9 @@ export const CategoryDialog: FC<Props> = (props: Props) => {
         <ModalTitle
           icon={<AppstoreOutlined />}
           title={
-            type === "create" ? t("common.createNew") : props.category.name
+            type === "create"
+              ? t("common.createNew")
+              : props.category.name || ""
           }
           subtitle={t("categories.createDialog.subTitle") || ""}
         />
