@@ -11,7 +11,6 @@ use crate::ipc::{
 
 use crate::prelude::*;
 
-use model::ProjectForCreate;
 use std::sync::Arc;
 use store::Store;
 mod ctx;
@@ -23,9 +22,17 @@ mod prelude;
 mod store;
 mod utils;
 
+
 #[tokio::main]
 async fn main() -> Result<()> {
-    let store = Store::new().await?;
+    env_logger::init();
+    
+    let data_dir = tauri::api::path::local_data_dir().unwrap();
+    let db_file = format!("file://{}/hydroxide/hydra.db", data_dir.display());
+
+    println!("Using db_file {}", db_file);
+
+    let store = Store::new(&db_file, "hydroxide", "hydroxide").await?;
     let store = Arc::new(store);
 
     tauri::Builder::default()

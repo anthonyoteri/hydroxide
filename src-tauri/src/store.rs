@@ -17,10 +17,10 @@ pub struct Store {
 }
 
 impl Store {
-    pub async fn new() -> Result<Self> {
+    pub async fn new(path: &str, ns: &str, db: &str) -> Result<Self> {
         Ok(Self {
-            ds: Datastore::new("memory").await?,
-            ses: Session::for_db("appns", "appdb"),
+            ds: Datastore::new(path).await?,
+            ses: Session::for_db(ns, db),
         })
     }
 

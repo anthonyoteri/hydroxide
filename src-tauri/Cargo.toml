@@ -21,10 +21,11 @@ tauri = { version = "1.2.4", features = [] }
 tokio = { version = "1.24.2", features = ["full"] }
 thiserror = "1.0.38"
 serde_with_macros = "2.2.0"
-surrealdb = { version = "1.0.0-beta.8", default_features=false, features = ["parallel", "kv-mem"] }
+surrealdb = { version = "1.0.0-beta.8", default_features=false, features = ["parallel", "kv-mem", "kv-rocksdb"] }
 parking_lot = "0.12.1"
 ts-rs = "6.2.1"
 chrono = "0.4.23"
+env_logger = "0.10.0"
 
 [features]
 # by default Tauri runs in production mode
