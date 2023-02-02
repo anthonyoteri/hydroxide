@@ -1,5 +1,5 @@
 import { Table } from "antd";
-import { FC } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { selectAllCategories } from "../../store/categories";
@@ -26,9 +26,13 @@ export const TimecardTable: FC<Props> = (props: Props) => {
   const projects = useSelector(selectAllProjects);
 
   const joinProjectCategory = (data: { [key: string]: number }[]) => {
+    console.log(data);
     return data.map((row) => {
+      console.log(row);
       const project = projects.find((p) => p.id === row.project);
       const category = categories.find((c) => c.id === project?.category);
+      console.log("categories are ", categories);
+      console.log("Project is ", project, " category is ", category);
       return {
         ...row,
         projectName: project?.name || "",

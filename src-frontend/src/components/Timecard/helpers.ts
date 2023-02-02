@@ -1,5 +1,5 @@
 import moment from "moment";
-import { TimeRecord } from "../../api/TimeReporting";
+import { TimeRecord } from "../../bindings";
 
 export const dateRange = (year: number, week: number) => {
   let days = [];
@@ -47,7 +47,7 @@ export const recordsForMonth = (
 export const aggregate = (records: TimeRecord[]) => {
   return records.reduce((agg, current) => {
     const o: any = { ...agg };
-    const duration = current.total_seconds;
+    const duration = moment(current.stop_time).diff(moment(current.start_time), "seconds");
 
     if (!duration) {
       return o;
@@ -85,14 +85,14 @@ export const summarize = (records: TimeRecord[], days: moment.Moment[]) => {
   }
 
   return Object.keys(result).map((k) => {
-    return { ...result[k], project: Number.parseInt(k) };
+    return { ...result[k], project: k };
   });
 };
 
 export const totalTime = (records: TimeRecord[]) => {
   return (
     records?.reduce(
-      (total, record) => (total += record.total_seconds || 0),
+      (total, record) => (total += moment(record.stop_time).diff(moment(record.start_time), "seconds") || 0),
       0
     ) || 0
   );
