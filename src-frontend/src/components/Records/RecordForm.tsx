@@ -1,5 +1,5 @@
 import { FormikProps } from "formik";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { CategorySelect } from "../Projects/CategorySelect";
@@ -10,12 +10,12 @@ import {
 } from "../Shared/Form/FormikField";
 import { ProjectSelect } from "./ProjectSelect";
 import { selectAllCategories } from "../../store/categories";
-import { Category } from "../../api/TimeReporting";
+import { Category } from "../../bindings";
 import moment from "moment";
 
 export interface RecordFormData {
-  category: number | undefined;
-  project: number | undefined;
+  category: string | undefined;
+  project: string | undefined;
   start_time: Date | undefined;
   stop_time: Date | undefined;
   approved: boolean | undefined;
@@ -48,7 +48,7 @@ export const RecordForm: FC<Props> = ({ formik, type }) => {
         {({ field }) => (
           <CategorySelect
             value={field.value}
-            onChange={(value: number) => {
+            onChange={(value: string) => {
               setSelectedCategory(categories.find((c) => c.id === value));
               formik.setFieldValue("project", undefined);
               formik.setFieldValue("category", value);

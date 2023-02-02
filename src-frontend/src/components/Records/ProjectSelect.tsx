@@ -1,6 +1,7 @@
+import React from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
-import { Category, Project } from "../../api/TimeReporting/types";
+import { Category, Project } from "../../bindings";
 import { selectProjectsForCategory } from "../../store/projects";
 import { ApplicationState } from "../../store/rootReducer";
 

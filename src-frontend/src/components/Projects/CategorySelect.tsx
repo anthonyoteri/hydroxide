@@ -1,11 +1,12 @@
+import React from "react";
 import { Select } from "antd";
 import { useSelector } from "react-redux";
-import { Category } from "../../api/TimeReporting/types";
+import { Category } from "../../bindings";
 import { selectAllCategories } from "../../store/categories";
 
 interface Props {
-  onChange: (value: number) => void;
-  value: number;
+  onChange: (value: string) => void;
+  value: string;
   disabled?: boolean;
   placeholder: string;
 }

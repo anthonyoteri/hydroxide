@@ -3,6 +3,8 @@
 use crate::prelude::*;
 use surrealdb::sql::{Array, Object, Value};
 
+use chrono::{DateTime, Utc, TimeZone};
+
 impl TryFrom<W<Value>> for Object {
     type Error = Error;
     fn try_from(val: W<Value>) -> Result<Object> {
@@ -54,3 +56,17 @@ impl TryFrom<W<Value>> for String {
         }
     }
 }
+
+impl TryFrom<W<Value>> for DateTime<Utc> {
+    type Error = Error;
+    fn try_from(val: W<Value>) -> Result<DateTime<Utc>> {
+        match val.0 {
+            Value::Datetime(obj) => {
+                let dt = Utc.from_utc_datetime(&obj.naive_utc());
+                Ok(dt)
+            },
+            _ => Err(Error::XValueNotOfType("DateTime<Utc>")),
+        }
+    }
+}
+

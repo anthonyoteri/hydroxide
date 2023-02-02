@@ -65,7 +65,6 @@ impl Createable for ProjectForCreate {}
 #[derive(Deserialize, TS, Debug, Clone)]
 #[ts(export, export_to = "../src-frontend/src/bindings/")]
 pub struct ProjectForUpdate {
-    pub id: String,
     pub name: Option<String>,
     pub category: Option<String>,
     pub description: Option<String>,
@@ -74,7 +73,6 @@ pub struct ProjectForUpdate {
 impl From<ProjectForUpdate> for Value {
     fn from(val: ProjectForUpdate) -> Self {
         let mut data = BTreeMap::new();
-        data.insert("id".into(), val.id.into());
         if let Some(name) = val.name {
             data.insert("name".into(), name.into());
         }

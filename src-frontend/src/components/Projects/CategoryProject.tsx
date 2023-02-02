@@ -1,11 +1,11 @@
-import { FC } from "react";
+import React, { FC } from "react";
 
 import { useSelector } from "react-redux";
 import { selectAllProjects } from "../../store/projects";
 import { selectAllCategories } from "../../store/categories";
 
 export type Props = {
-  pid: number;
+  pid: string;
 };
 
 export const CategoryProject: FC<Props> = (props) => {

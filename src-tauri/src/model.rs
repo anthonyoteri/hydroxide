@@ -13,10 +13,12 @@ use ts_rs::TS;
 mod base;
 mod category;
 mod project;
+mod time_record;
 
 // - Re-exports
 pub use category::{Category, CategoryForCreate, CategoryForUpdate, CategoryFilter, CategoryBmc};
 pub use project::{Project, ProjectForCreate, ProjectForUpdate, ProjectFilter, ProjectBmc};
+pub use time_record::{TimeRecord, TimeRecordForCreate, TimeRecordForUpdate, TimeRecordFilter, TimeRecordBmc};
 
 fn fire_model_event<D>(ctx: &Ctx, entity: &str, action: &str, data: D)
 where
@@ -30,7 +32,7 @@ where
     })
 }
 
-#[derive(Serialize, TS, Clone)]
+#[derive(Serialize, TS, Clone, Debug)]
 #[ts(export, export_to = "../src-frontend/src/bindings/")]
 pub struct ModelMutateResultData {
     pub id: String,

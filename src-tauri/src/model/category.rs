@@ -56,7 +56,6 @@ impl Createable for CategoryForCreate {}
 #[skip_serializing_none]
 #[derive(Deserialize, Debug, Clone)]
 pub struct CategoryForUpdate {
-    pub id: String,
     pub name: Option<String>,
     pub description: Option<String>,
 }
@@ -64,7 +63,6 @@ pub struct CategoryForUpdate {
 impl From<CategoryForUpdate> for Value {
     fn from(val: CategoryForUpdate) -> Self {
         let mut data = BTreeMap::new();
-        data.insert("id".into(), val.id.into());
         if let Some(name) = val.name {
             data.insert("name".into(), name.into());
         }

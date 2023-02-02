@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { Modal } from "antd";
 import { Formik, FormikHelpers } from "formik";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { useSelector } from "react-redux";
-import { TimeRecord, TimeRecordDraft } from "../../api/TimeReporting";
+import { TimeRecord, TimeRecordDraft } from "../../bindings";
 import { RecordForm, RecordFormData } from "./RecordForm";
 import { selectAllProjects } from "../../store/projects";
-import { Project } from "../../api/TimeReporting";
+import { Project } from "../../bindings";
 import useModalForm from "../../hooks/useModalForm";
 import { parseErrors } from "../../utils/formHelpers";
 import { ModalFormFooter } from "../Shared/ModalFormFooter";
@@ -28,13 +28,13 @@ export const RecordDialog: FC<Props> = (props: Props) => {
   const projects = useSelector(selectAllProjects);
   const [formData] = useState<RecordFormData>({
     category:
-      props.record.project !== 0
+      props.record.project !== ""
         ? projects.find((p: Project) => p.id === props.record.project)?.category
         : undefined,
-    project: props.record.project !== 0 ? props.record.project : undefined,
+    project: props.record.project !== "" ? props.record.project : undefined,
     start_time: props.record.start_time,
     stop_time: props.record.stop_time,
-    approved: props.record.approved,
+    approved: props.record.approved || false,
   });
   const { isVisible, isSaving, error, setStatus, setError, handleAfterClose } =
     useModalForm({ onCancel: onCancel, onComplete: onComplete });

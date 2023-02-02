@@ -37,9 +37,12 @@ pub async fn update<D>(
 where
     D: Patchable,
 {
+    println!("Update called, id={}", id);
     let id = ctx.get_store().merge(id, data).await?;
 
     let result_data = ModelMutateResultData::from(id);
+
+    println!("Result data {:?}", result_data);
     fire_model_event(&ctx, entity, "update", result_data.clone());
 
     Ok(result_data)

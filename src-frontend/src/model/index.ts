@@ -4,9 +4,13 @@ import {
   CategoryDraft,
   Project,
   ProjectDraft,
+  TimeRecord,
+  TimeRecordDraft,
+  fromJSON,
 } from "../bindings";
 import { ipc_invoke } from "../ipc";
 import { ensure_ModelMutateResultData } from "../bindings/type_asserts";
+import moment from "moment";
 
 class BaseFmc<M, C, U> {
   #cmd_suffix: string;
@@ -18,6 +22,16 @@ class BaseFmc<M, C, U> {
     this.#cmd_suffix = cmd_suffix;
   }
 
+  serialize(obj: M | C | U): string {
+    return JSON.stringify(obj, (key, value) => {
+      console.log(`key=${key}, value=${value}`);
+      if (value instanceof Date || moment.isMoment(value)) {
+        return value.toISOString();
+      }
+      return value;
+    });
+  }
+
   async get(id: string): Promise<M> {
     console.log(`Get::${this.#cmd_suffix}`, id);
     return ipc_invoke(`get_${this.#cmd_suffix}`, { id }).then(
@@ -27,14 +41,16 @@ class BaseFmc<M, C, U> {
 
   async create(data: C): Promise<ModelMutateResultData> {
     console.log(`Create::${this.#cmd_suffix}`, data);
-    return ipc_invoke(`create_${this.#cmd_suffix}`, { data }).then((res) => {
+    const serialized = this.serialize(data);
+    return ipc_invoke(`create_${this.#cmd_suffix}`, { data: JSON.parse(serialized) }).then((res) => {
       return ensure_ModelMutateResultData(res.data);
     });
   }
 
   async update(id: string, data: U): Promise<ModelMutateResultData> {
     console.log(`Update::${this.#cmd_suffix}`, id, data);
-    return ipc_invoke(`update_${this.#cmd_suffix}`, { id, data }).then(
+    const serialized = this.serialize(data);
+    return ipc_invoke(`update_${this.#cmd_suffix}`, { id, data: JSON.parse(serialized) }).then(
       (res) => {
         return ensure_ModelMutateResultData(res.data);
       }
@@ -73,3 +89,15 @@ class ProjectFmc extends BaseFmc<Project, ProjectDraft, ProjectDraft> {
 }
 
 export const project_fmc = new ProjectFmc();
+
+class TimeRecordFmc extends BaseFmc<TimeRecord, TimeRecordDraft, TimeRecordDraft> {
+  constructor() {
+    super("time_record");
+  }
+
+  async list(): Promise<TimeRecord[]> {
+    return ipc_invoke(`list_time_records`, {}).then((res) => res.data);
+  }
+}
+
+export const time_record_fmc = new TimeRecordFmc();

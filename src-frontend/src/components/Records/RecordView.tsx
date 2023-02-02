@@ -1,7 +1,7 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { TimeRecord, TimeRecordDraft } from "../../api/TimeReporting";
+import { TimeRecord, TimeRecordDraft } from "../../bindings";
 
 import * as actions from "../../store/timeRecords";
 
@@ -19,9 +19,10 @@ import moment from "moment";
 
 const emptyRecord = (): TimeRecordDraft => {
   return {
-    project: 0,
+    project: "",
     start_time: undefined,
     stop_time: undefined,
+    approved: false,
   };
 };
 
@@ -85,7 +86,7 @@ export const RecordView: FC = () => {
       async onOk() {
         try {
           await dispatch(
-            actions.patchRecord(record.id as number, {
+            actions.patchRecord(record.id, {
               ...record,
               approved: !record?.approved,
             })
@@ -139,7 +140,7 @@ export const RecordView: FC = () => {
       async onOk() {
         try {
           await dispatch(
-            actions.patchRecord(record.id as number, {
+            actions.patchRecord(record.id, {
               ...record,
               stop_time: now.toDate(),
             })
@@ -165,7 +166,7 @@ export const RecordView: FC = () => {
       content: t("common.deleteConfirmation.content"),
       async onOk() {
         try {
-          await dispatch(actions.deleteRecord(record.id as number));
+          await dispatch(actions.deleteRecord(record.id));
           message.success(
             t("common.deleteConfirmation.notification", {
               type: "Record",

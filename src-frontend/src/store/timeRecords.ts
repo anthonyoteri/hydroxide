@@ -1,13 +1,14 @@
 import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
 import * as api from "../api/TimeReporting/TimeRecords";
-import { TimeRecord } from "../api/TimeReporting";
+import { ModelMutateResultData, TimeRecord, TimeRecordDraft } from "../bindings";
+import { time_record_fmc } from "../model";
 import { AppThunk } from "./index";
 import { ApplicationState } from "../store/rootReducer";
 import moment from "moment";
 
 interface TimeRecordState {
-  allIds: number[];
-  byId: Record<number, TimeRecord>;
+  allIds: string[];
+  byId: Record<string, TimeRecord>;
 }
 
 const initialState: TimeRecordState = {
@@ -34,9 +35,11 @@ export const { fetchSuccess, fetchFail } = timeRecordReducer.actions;
 
 export default timeRecordReducer.reducer;
 
+
 export const fetchRecords = (): AppThunk<Promise<void>> => async (dispatch) => {
   try {
-    const records = await api.listRecords();
+    const records = await time_record_fmc.list();
+    console.log(records);
     dispatch(fetchSuccess(records));
   } catch (err) {
     console.error(err);
@@ -46,10 +49,10 @@ export const fetchRecords = (): AppThunk<Promise<void>> => async (dispatch) => {
 };
 
 export const deleteRecord =
-  (id: number): AppThunk<Promise<void>> =>
+  (id: string): AppThunk<Promise<void>> =>
   async (dispatch) => {
     try {
-      await api.deleteRecord(id);
+      await time_record_fmc.delete(id);
       dispatch(fetchRecords());
     } catch (err) {
       throw err;
@@ -57,22 +60,22 @@ export const deleteRecord =
   };
 
 export const createRecord =
-  (body: TimeRecord): AppThunk<Promise<TimeRecord>> =>
+  (body: TimeRecordDraft): AppThunk<Promise<ModelMutateResultData>> =>
   async (dispatch) => {
     try {
-      const newTimeRecord = await api.createRecord(body);
+      const newId = await time_record_fmc.create(body);
       await dispatch(fetchRecords());
-      return newTimeRecord;
+      return newId;
     } catch (err) {
       throw err;
     }
   };
 
 export const patchRecord =
-  (id: number, body: Partial<TimeRecord>): AppThunk<Promise<void>> =>
+  (id: string, body: TimeRecordDraft): AppThunk<Promise<void>> =>
   async (dispatch) => {
     try {
-      await api.patchRecord(id, body);
+      await time_record_fmc.update(id, body);
       return dispatch(fetchRecords());
     } catch (err) {
       throw err;
