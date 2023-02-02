@@ -18,10 +18,11 @@ export * from "./ModelMutateResultData";
 export interface TimeRecordDraft
     extends Omit<
         TimeRecord,
-        "id" | "start_time" | "stop_time"
+        "id" | "start_time" | "stop_time" | "approved"
     > {
     start_time?: Date;
     stop_time?: Date;
+    approved?: boolean;
 }
 
 export * from "./TimeRecord";

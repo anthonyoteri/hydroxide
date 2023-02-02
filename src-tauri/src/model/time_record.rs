@@ -27,7 +27,7 @@ pub struct TimeRecord {
     #[ts(type = "Date")]
     pub stop_time: Option<DateTime<Utc>>,
 
-    pub approved: Option<bool>,
+    pub approved: bool,
 }
 
 impl TryFrom<Object> for TimeRecord {
@@ -39,7 +39,7 @@ impl TryFrom<Object> for TimeRecord {
             project: val.x_take_val("project")?,
             start_time: val.x_take_val("start_time")?,
             stop_time: val.x_take("stop_time")?,
-            approved: val.x_take("approved")?,
+            approved: val.x_take_val("approved")?,
         })
     }
 }
@@ -48,6 +48,7 @@ impl TryFrom<Object> for TimeRecord {
 pub struct TimeRecordForCreate {
     pub project: String,
     pub start_time: DateTime<Utc>,
+    pub stop_time: Option<DateTime<Utc>>,
     pub approved: Option<bool>,
 }
 
@@ -57,6 +58,19 @@ impl From<TimeRecordForCreate> for Value {
         data.insert("project".into(), val.project.into());
         data.insert("start_time".into(), val.start_time.into());
 
+        if let Some(stop_time) = val.stop_time {
+            data.insert("stop_time".into(), stop_time.into());
+        }
+
+        match val.approved {
+            Some(approved) => {
+                data.insert("approved".into(), approved.into());
+            },
+            None => {
+                let approved = val.start_time <= chrono::Utc::now();
+                data.insert("approved".into(), approved.into());
+            }
+        }
         if let Some(approved) = val.approved {
             data.insert("approved".into(), approved.into());
         }

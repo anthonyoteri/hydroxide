@@ -34,7 +34,7 @@ export const RecordDialog: FC<Props> = (props: Props) => {
     project: props.record.project !== "" ? props.record.project : undefined,
     start_time: props.record.start_time,
     stop_time: props.record.stop_time,
-    approved: props.record.approved || false,
+    approved: props.record.approved,
   });
   const { isVisible, isSaving, error, setStatus, setError, handleAfterClose } =
     useModalForm({ onCancel: onCancel, onComplete: onComplete });

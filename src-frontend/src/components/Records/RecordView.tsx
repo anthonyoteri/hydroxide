@@ -22,7 +22,6 @@ const emptyRecord = (): TimeRecordDraft => {
     project: "",
     start_time: undefined,
     stop_time: undefined,
-    approved: false,
   };
 };
 

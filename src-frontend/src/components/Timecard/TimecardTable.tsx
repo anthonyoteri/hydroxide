@@ -25,7 +25,7 @@ export const TimecardTable: FC<Props> = (props: Props) => {
   const categories = useSelector(selectAllCategories);
   const projects = useSelector(selectAllProjects);
 
-  const joinProjectCategory = (data: { [key: string]: number }[]) => {
+  const joinProjectCategory = (data: { [key: string]: string }[]) => {
     console.log(data);
     return data.map((row) => {
       console.log(row);

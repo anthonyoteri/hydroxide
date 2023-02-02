@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button, Card, Drawer, Layout } from "antd";
 import { MenuFoldOutlined } from "@ant-design/icons";
