@@ -13,6 +13,9 @@
     "allowlist": {
       "fs": {
         "scope": ["$APPLOCALDATA/hydroxide/*"]
+      },
+      "app": {
+        "all": true
       }
     },
     "bundle": {
@@ -30,7 +33,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "xyz.oteri.hydroxide",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -57,10 +60,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 720,
+        "height": 960,
         "resizable": true,
         "title": "Hydroxide (Time Tracking)",
-        "width": 960
+        "width": 1080
       }
     ]
   }

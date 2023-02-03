@@ -1,24 +1,18 @@
-import { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { getVersion, getName } from "@tauri-apps/api/app";
+
 import {
   BranchesOutlined,
-  CalendarOutlined,
-  GithubOutlined,
 } from "@ant-design/icons";
-import moment from "moment";
-
-import * as api from "../../api/About/About";
 
 export const AppVersion: FC<{}> = () => {
+  const [appName, setAppName] = useState<string | undefined>(undefined);
   const [appVersion, setAppVersion] = useState<string | undefined>(undefined);
-  const [revision, setRevision] = useState<string | undefined>(undefined);
-  const [buildDate, setBuildDate] = useState<Date | undefined>(undefined);
 
   useEffect(() => {
     const fetchData = async () => {
-      const appInfo = await api.getAppInfo();
-      setAppVersion(appInfo?.app_version);
-      setRevision(appInfo?.revision);
-      setBuildDate(appInfo?.build_date);
+      setAppVersion(await getVersion());
+      setAppName(await getName());
     };
     fetchData();
   });
@@ -26,14 +20,7 @@ export const AppVersion: FC<{}> = () => {
   return (
     <div data-testid="app_version" className="app-version">
       <div className="app-version-number">
-        <BranchesOutlined /> V:{appVersion}
-        <span className="app-version-revision">
-          {"  "}
-          <GithubOutlined /> {revision}
-        </span>
-      </div>
-      <div className="app-version-date">
-        <CalendarOutlined /> {moment(buildDate).format("LL")}
+        <BranchesOutlined />{appName} V:{appVersion}
       </div>
     </div>
   );
