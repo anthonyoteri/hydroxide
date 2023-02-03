@@ -16,9 +16,17 @@ mod project;
 mod time_record;
 
 // - Re-exports
-pub use category::{Category, CategoryForCreate, CategoryForUpdate, CategoryFilter, CategoryBmc};
-pub use project::{Project, ProjectForCreate, ProjectForUpdate, ProjectFilter, ProjectBmc};
-pub use time_record::{TimeRecord, TimeRecordForCreate, TimeRecordForUpdate, TimeRecordFilter, TimeRecordBmc};
+pub use category::{
+    Category, CategoryBmc, CategoryFilter, CategoryForCreate, CategoryForImport, CategoryForUpdate,
+};
+pub use project::{
+    Project, ProjectBmc, ProjectFilter, ProjectForCreate, ProjectForImport,
+    ProjectForImportWithContext, ProjectForUpdate,
+};
+pub use time_record::{
+    TimeRecord, TimeRecordBmc, TimeRecordFilter, TimeRecordForCreate, TimeRecordForImport,
+    TimeRecordForImportWithContext, TimeRecordForUpdate,
+};
 
 fn fire_model_event<D>(ctx: &Ctx, entity: &str, action: &str, data: D)
 where

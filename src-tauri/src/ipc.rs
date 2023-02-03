@@ -13,6 +13,7 @@
 //!
 
 mod category;
+mod import;
 mod params;
 mod project;
 mod response;
@@ -24,3 +25,5 @@ pub use params::{CreateParams, UpdateParams, GetParams, ListParams, DeleteParams
 pub use project::{create_project, update_project, get_project, list_projects, delete_project};
 pub use response::*;
 pub use time_record::{create_time_record, update_time_record, get_time_record, list_time_records, delete_time_record};
+pub use import::import_data;
+

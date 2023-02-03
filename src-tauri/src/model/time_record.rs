@@ -65,7 +65,7 @@ impl From<TimeRecordForCreate> for Value {
         match val.approved {
             Some(approved) => {
                 data.insert("approved".into(), approved.into());
-            },
+            }
             None => {
                 let approved = val.start_time <= chrono::Utc::now();
                 data.insert("approved".into(), approved.into());
@@ -115,6 +115,43 @@ impl From<TimeRecordForUpdate> for Value {
 }
 
 impl Patchable for TimeRecordForUpdate {}
+
+#[derive(Deserialize, TS, Debug, Clone)]
+#[ts(export, export_to = "../src-frontend/src/bindings/")]
+pub struct TimeRecordForImport {
+    pub id: usize,
+    pub project: usize,
+    #[ts(type = "Date")]
+    pub start_time: DateTime<Utc>,
+    #[ts(type = "Date")]
+    pub stop_time: Option<DateTime<Utc>>,
+    pub total_seconds: u64,
+    pub approved: bool,
+}
+
+pub struct TimeRecordForImportWithContext {
+    pub data: TimeRecordForImport,
+    pub ctx: BTreeMap<usize, String>,
+}
+
+impl TryFrom<TimeRecordForImportWithContext> for TimeRecordForCreate {
+    type Error = Error;
+
+    fn try_from(val: TimeRecordForImportWithContext) -> Result<Self> {
+        if let Some(project) = val.ctx.get(&val.data.project) {
+            return Ok(Self {
+                project: project.clone(),
+                start_time: val.data.start_time.clone(),
+                stop_time: val.data.stop_time.clone(),
+                approved: Some(val.data.approved),
+            });
+        }
+        Err(Error::InvalidState(format!(
+            "No such project with reference ID {}",
+            val.data.project
+        )))
+    }
+}
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct TimeRecordFilter {

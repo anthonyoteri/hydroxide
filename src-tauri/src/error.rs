@@ -26,4 +26,7 @@ pub enum Error {
 
     #[error(transparent)]
     IO(#[from] std::io::Error),
+
+    #[error("Inconsistent state: {0}")]
+    InvalidState(String),
 }

@@ -7,6 +7,7 @@ use crate::prelude::*;
 use crate::store::{Createable, Filterable, Patchable};
 use crate::utils::{map, XTake, XTakeVal};
 
+use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
 use serde_with_macros::skip_serializing_none;
 use std::collections::BTreeMap;
@@ -87,6 +88,43 @@ impl From<ProjectForUpdate> for Value {
 }
 
 impl Patchable for ProjectForUpdate {}
+
+#[derive(Deserialize, TS, Debug, Clone)]
+#[ts(export, export_to = "../src-frontend/src/bindings/")]
+pub struct ProjectForImport {
+    pub id: usize,
+    pub category: usize,
+    pub name: String,
+    pub description: String,
+    pub num_records: usize,
+    #[ts(type = "Date")]
+    pub created: DateTime<Utc>,
+    #[ts(type = "Date")]
+    pub updated: DateTime<Utc>,
+}
+
+pub struct ProjectForImportWithContext {
+    pub data: ProjectForImport,
+    pub ctx: BTreeMap<usize, String>,
+}
+
+impl TryFrom<ProjectForImportWithContext> for ProjectForCreate {
+    type Error = Error;
+
+    fn try_from(val: ProjectForImportWithContext) -> Result<Self> {
+        if let Some(category) = val.ctx.get(&val.data.category) {
+            return Ok(Self {
+                name: val.data.name,
+                category: category.clone(),
+                description: Some(val.data.description.clone()),
+            });
+        }
+        Err(Error::InvalidState(format!(
+            "No such category with external reference ID {}",
+            val.data.category
+        )))
+    }
+}
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct ProjectFilter {

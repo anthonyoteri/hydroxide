@@ -13,6 +13,8 @@ use std::collections::BTreeMap;
 use std::sync::Arc;
 use surrealdb::sql::{Object, Value};
 use ts_rs::TS;
+use chrono::{DateTime, Utc};
+
 
 #[derive(Serialize, TS, Debug, Clone)]
 #[ts(export, export_to = "../src-frontend/src/bindings/")]
@@ -92,6 +94,33 @@ impl From<CategoryFilter> for Value {
 }
 
 impl Filterable for CategoryFilter {}
+
+
+#[derive(Deserialize, TS, Debug, Clone)]
+#[ts(export, export_to = "../src-frontend/src/bindings/")]
+pub struct CategoryForImport {
+    pub id: usize,
+    pub name: String,
+    pub description: String,
+    pub num_records: usize,
+
+    #[ts(type = "Date")]
+    pub created: DateTime<Utc>,
+
+    #[ts(type = "Date")]
+    pub updated: DateTime<Utc>,
+    pub user: String,
+}
+
+impl From<CategoryForImport> for CategoryForCreate {
+    fn from(val: CategoryForImport) -> Self {
+        Self {
+            name: val.name,
+            description: Some(val.description),
+        }
+    }
+}
+
 
 pub struct CategoryBmc;
 
