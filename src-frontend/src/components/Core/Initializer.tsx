@@ -1,5 +1,5 @@
 import { Button, Modal } from "antd";
-import { FC, ReactNode, useCallback, useEffect, useState } from "react";
+import React, { FC, ReactNode, useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks";
 import { connect } from "react-redux";
 import { apiErrorMessage } from "../../api/errors";
@@ -26,9 +26,9 @@ export const Initializer: FC<Props> = (props) => {
     setState("loading");
     Promise.all([
       //dispatch(fetchSettings()),
-      //dispatch(fetchCategories()),
-      //dispatch(fetchProjects()),
-      //dispatch(fetchRecords()),
+      dispatch(fetchCategories()),
+      dispatch(fetchProjects()),
+      dispatch(fetchRecords()),
     ])
       .then(() => {
         setState("complete");
