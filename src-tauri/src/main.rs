@@ -2,6 +2,7 @@
     all(not(debug_assertions), target_os = "windows"),
     windows_subsystem = "windows"
 )]
+#![allow(clippy::module_name_repetitions)]
 
 use crate::ipc::{
     create_category, create_project, create_time_record, delete_category, delete_project,

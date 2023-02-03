@@ -1,6 +1,6 @@
 //! Event layer of the backend.
 //!
-//! Right now, very simple, just a HubEvent data type.
+//! Right now, very simple, just a `HubEvent` data type.
 //!
 
 use serde::Serialize;

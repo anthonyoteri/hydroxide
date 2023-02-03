@@ -68,11 +68,11 @@ where
 {
     let objects = ctx
         .get_store()
-        .select(entity, filter.map(|f| f.into()))
+        .select(entity, filter.map(std::convert::Into::into))
         .await?;
 
     objects
         .into_iter()
-        .map(|o| o.try_into())
+        .map(std::convert::TryInto::try_into)
         .collect::<Result<_>>()
 }

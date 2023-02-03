@@ -2,10 +2,10 @@
 //!
 //! The API to be used are turbofishable:
 //!
-//! - .x_take<T>(key) - which return an object of type T. Will Err if is not of type
-//! - .x_take_val<T>(key)
+//! - .`x_take`<T>(key) - which return an object of type T. Will Err if is not of type
+//! - .`x_take_val`<T>(key)
 //!
-//! The trait to implement is XTakeImpl and the XTake and XTakeVal are designed to be blanket implementation.
+//! The trait to implement is `XTakeImpl` and the `XTake` and `XTakeVal` are designed to be blanket implementation.
 //!
 
 use crate::prelude::{Error, Result};
@@ -17,9 +17,9 @@ pub trait XTakeImpl<T> {
     fn x_take_impl(&mut self, k: &str) -> Result<Option<T>>;
 }
 
-/// For turbofish friendly version of XTakeInto with blanket implementation.
+/// For turbofish friendly version of `XTakeInto` with blanket implementation.
 /// Note: Has a blanket implementation. Not to be implemented directly.
-///       XTakeInto is the to be implemented trait
+///       `XTakeInto` is the to be implemented trait
 pub trait XTake {
     fn x_take<T>(&mut self, k: &str) -> Result<Option<T>>
     where
@@ -38,7 +38,7 @@ impl<S> XTake for S {
 
 /// Take the value and return Error if None.
 /// Note: Has a blanket implementation. Not to be implemented directly.
-///       XTakeInto is the to be implemented trait
+///       `XTakeInto` is the to be implemented trait
 pub trait XTakeVal {
     fn x_take_val<T>(&mut self, k: &str) -> Result<T>
     where

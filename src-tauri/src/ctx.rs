@@ -21,6 +21,7 @@ pub struct Ctx {
 }
 
 impl Ctx {
+    #[allow(clippy::unnecessary_wraps)]
     pub fn from_app(app: AppHandle<Wry>) -> Result<Arc<Ctx>> {
         Ok(Arc::new(Ctx::new(app)))
     }

@@ -37,7 +37,7 @@ where
         topic: entity.to_string(),
         label: Some(action.to_string()),
         data: Some(data),
-    })
+    });
 }
 
 #[derive(Serialize, TS, Clone, Debug)]

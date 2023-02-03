@@ -4,7 +4,7 @@
 //! Notes:
 //!   - The strategy to start with one `Error` type for the whole application and then segregate as needed.
 //!   - Since everything is typed from the start, renaming and refactoring become relatively trivial.
-//!   - By best practices, `anyhow` is not used in application code, but can be used in unit or integration tests (will be in dev_dependencies when used)
+//!   - By best practices, `anyhow` is not used in application code, but can be used in unit or integration tests (will be in `dev_dependencies` when used)
 //!
 
 #[derive(thiserror::Error, Debug)]

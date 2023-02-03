@@ -1,4 +1,4 @@
-//! All model and controller for the TiemRecord type
+//! All model and controller for the `TiemRecord` type
 //!
 
 use super::{base, ModelMutateResultData};
@@ -62,15 +62,13 @@ impl From<TimeRecordForCreate> for Value {
             data.insert("stop_time".into(), stop_time.into());
         }
 
-        match val.approved {
-            Some(approved) => {
-                data.insert("approved".into(), approved.into());
-            }
-            None => {
-                let approved = val.start_time <= chrono::Utc::now();
-                data.insert("approved".into(), approved.into());
-            }
+        if let Some(approved) = val.approved {
+            data.insert("approved".into(), approved.into());
+        } else {
+            let approved = val.start_time <= chrono::Utc::now();
+            data.insert("approved".into(), approved.into());
         }
+
         if let Some(approved) = val.approved {
             data.insert("approved".into(), approved.into());
         }
