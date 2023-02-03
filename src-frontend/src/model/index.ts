@@ -6,7 +6,6 @@ import {
   ProjectDraft,
   TimeRecord,
   TimeRecordDraft,
-  fromJSON,
 } from "../bindings";
 import { ipc_invoke } from "../ipc";
 import { ensure_ModelMutateResultData } from "../bindings/type_asserts";

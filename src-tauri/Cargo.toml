@@ -1,11 +1,11 @@
 [package]
-name = "app"
-version = "0.1.0"
-description = "A Tauri App"
-authors = ["you"]
+name = "hydroxide"
+version = "23.2.0"
+description = "A desktop time tracker"
+authors = ["Anthony Oter"]
 license = ""
-repository = ""
-default-run = "app"
+repository = "https://gitlab.oteri.xyz/anthonyoteri/hydroxide"
+default-run = "hydroxide"
 edition = "2021"
 rust-version = "1.59"
 
@@ -21,7 +21,7 @@ tauri = { version = "1.2.4", features = ["app-all"] }
 tokio = { version = "1.24.2", features = ["full"] }
 thiserror = "1.0.38"
 serde_with_macros = "2.2.0"
-surrealdb = { version = "1.0.0-beta.8", default_features=false, features = ["parallel", "kv-mem", "kv-rocksdb"] }
+surrealdb = { version = "1.0.0-beta.8", default_features=false, features = ["parallel", "kv-rocksdb"] }
 parking_lot = "0.12.1"
 ts-rs = "6.2.1"
 chrono = "0.4.23"
@@ -34,3 +34,10 @@ default = ["custom-protocol"]
 # this feature is used for production builds where `devPath` points to the filesystem
 # DO NOT remove this
 custom-protocol = ["tauri/custom-protocol"]
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

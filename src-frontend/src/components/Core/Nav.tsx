@@ -9,7 +9,7 @@ import {
   SettingOutlined,
 } from "@ant-design/icons";
 import { Layout, Menu, Typography } from "antd";
-import { FC } from "react";
+import React, { FC } from "react";
 import { useLocation } from "react-router";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -76,11 +76,13 @@ export const Nav: FC = () => {
             </Link>
           </Menu.Item>
 
-          <Menu.Item key="/settings" icon={<SettingOutlined />}>
-            <Link to="/settings">
-              <span>{t("navigation.settings")}</span>
-            </Link>
-          </Menu.Item>
+          {false && (
+            <Menu.Item key="/settings" icon={<SettingOutlined />}>
+              <Link to="/settings">
+                <span>{t("navigation.settings")}</span>
+              </Link>
+            </Menu.Item>
+          )}
         </Menu.ItemGroup>
 
         <Menu.ItemGroup

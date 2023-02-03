@@ -32,10 +32,10 @@
         "configuration": "Configuration",
         "history": "History",
         "projects": "Projects",
-        "records": "Records",
+        "records": "Time Log",
         "reporting": "Reporting",
         "settings": "Settings",
-        "timecards": "Timecards"
+        "timecards": "Time Reporting"
     },
     "categories": {
         "createButton": "Create Category",
@@ -44,7 +44,7 @@
             "nameLabel": "Name",
             "subTitle": "Category"
         },
-        "createSuccessNotification": "Successfully create new category",
+        "createSuccessNotification": "Successfully created new category",
         "table": {
             "descriptionLabel": "Description",
             "nameLabel": "Category",
@@ -65,7 +65,7 @@
             "nameLabel": "Name",
             "subTitle": "Project"
         },
-        "createSuccessNotification": "Successfully create new project",
+        "createSuccessNotification": "Successfully created new project",
         "table": {
             "categoryLabel": "Category",
             "descriptionLabel": "Description",
