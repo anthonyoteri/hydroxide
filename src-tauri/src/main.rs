@@ -30,7 +30,7 @@ async fn main() -> Result<()> {
     let data_dir = tauri::api::path::local_data_dir().unwrap();
     let db_file = format!("file://{}/hydroxide/hydra.db", data_dir.display());
 
-    println!("Using db_file {}", db_file);
+    println!("Using db_file {db_file}");
 
     let store = Store::new(&db_file, "hydroxide", "hydroxide").await?;
     let store = Arc::new(store);

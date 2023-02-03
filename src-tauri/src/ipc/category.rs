@@ -33,7 +33,7 @@ pub async fn update_category(
     app: AppHandle<Wry>,
     params: UpdateParams<CategoryForUpdate>,
 ) -> IpcResponse<ModelMutateResultData> {
-    println!("Update category called with {:?}", params);
+    println!("Update category called with {params:?}");
     match Ctx::from_app(app) {
         Ok(ctx) => CategoryBmc::update(ctx, &params.id, params.data)
             .await

@@ -6,9 +6,9 @@ use tauri::{command, AppHandle, Wry};
 use serde::Deserialize;
 
 use crate::model::{
-    CategoryBmc, CategoryForCreate, CategoryForImport, ModelMutateResultData, ProjectBmc,
+    CategoryBmc, CategoryForCreate, CategoryForImport, ProjectBmc,
     ProjectForCreate, ProjectForImport, ProjectForImportWithContext, TimeRecordBmc,
-    TimeRecordForImport, TimeRecordForCreate, TimeRecord,
+    TimeRecordForImport, TimeRecordForCreate,
 };
 
 use super::IpcResponse;
@@ -53,7 +53,7 @@ pub async fn import_data(app: AppHandle<Wry>, params: ImportParams) -> IpcRespon
             for value in params.categories {
                 let category_for_create = CategoryForCreate::from(value.clone());
                 if let Ok(response) = CategoryBmc::create(ctx.clone(), category_for_create).await {
-                    category_id_map.insert(value.id.into(), response.id.into());
+                    category_id_map.insert(value.id, response.id);
                 }
             }
 
@@ -66,7 +66,7 @@ pub async fn import_data(app: AppHandle<Wry>, params: ImportParams) -> IpcRespon
 
                 if let Ok(project_for_create) = ProjectForCreate::try_from(value_with_ctx) {
                     if let Ok(response) = ProjectBmc::create(ctx.clone(), project_for_create).await {
-                        project_id_map.insert(value.id.into(), response.id.into());
+                        project_id_map.insert(value.id, response.id);
                     }
                 }
             }

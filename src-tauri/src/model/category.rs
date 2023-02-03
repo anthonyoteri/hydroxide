@@ -5,7 +5,7 @@ use super::{base, ModelMutateResultData};
 use crate::ctx::Ctx;
 use crate::prelude::*;
 use crate::store::{Createable, Filterable, Patchable};
-use crate::utils::{map, XTakeVal, XTake};
+use crate::utils::{map, XTakeVal};
 
 use serde::{Deserialize, Serialize};
 use serde_with_macros::skip_serializing_none;

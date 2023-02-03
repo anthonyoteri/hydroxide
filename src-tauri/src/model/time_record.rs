@@ -141,8 +141,8 @@ impl TryFrom<TimeRecordForImportWithContext> for TimeRecordForCreate {
         if let Some(project) = val.ctx.get(&val.data.project) {
             return Ok(Self {
                 project: project.clone(),
-                start_time: val.data.start_time.clone(),
-                stop_time: val.data.stop_time.clone(),
+                start_time: val.data.start_time,
+                stop_time: val.data.stop_time,
                 approved: Some(val.data.approved),
             });
         }

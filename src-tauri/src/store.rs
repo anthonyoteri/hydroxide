@@ -1,5 +1,5 @@
 use crate::prelude::*;
-use crate::utils::{map, XTake, XTakeVal};
+use crate::utils::{map, XTakeVal};
 use std::collections::BTreeMap;
 use surrealdb::sql::{thing, Array, Datetime, Object, Value};
 use surrealdb::{Datastore, Session};
