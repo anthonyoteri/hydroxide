@@ -76,7 +76,7 @@ export const Nav: FC = () => {
             </Link>
           </Menu.Item>
 
-          {false && (
+          {true && (
             <Menu.Item key="/settings" icon={<SettingOutlined />}>
               <Link to="/settings">
                 <span>{t("navigation.settings")}</span>

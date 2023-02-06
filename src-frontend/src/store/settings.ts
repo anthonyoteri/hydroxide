@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import type { RootState } from "./index";
 
 import * as api from "../api/Settings";
+import { settings_fmc } from "../model";
 import { Settings } from "../api/Settings";
 import { AppThunk } from "./index";
 import { ApplicationState } from "./rootReducer";
@@ -54,3 +54,7 @@ export const saveSettings =
 
 export const selectSettings = (state: ApplicationState) =>
   state.settings.active;
+
+export const uploadConfiguration = (data: any) => {
+  return settings_fmc.importConfiguration(data);
+}

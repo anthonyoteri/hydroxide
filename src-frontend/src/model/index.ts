@@ -100,3 +100,11 @@ class TimeRecordFmc extends BaseFmc<TimeRecord, TimeRecordDraft, TimeRecordDraft
 }
 
 export const time_record_fmc = new TimeRecordFmc();
+
+class SettingsFmc {
+  async importConfiguration(data: any): Promise<{}> {
+    return ipc_invoke("import_data", data).then((res) => res.data);
+  }
+}
+
+export const settings_fmc = new SettingsFmc();

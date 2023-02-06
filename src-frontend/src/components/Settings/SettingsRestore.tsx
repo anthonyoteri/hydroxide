@@ -1,8 +1,10 @@
 import { UploadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
-import { FC, useState } from "react";
+import React, { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { SettingsRestoreDialog } from "./SettingsRestoreDialog";
+import { open } from "@tauri-apps/api/dialog";
+import { readTextFile } from "@tauri-apps/api/fs";
+import { uploadConfiguration } from "../../store/settings";
 
 type Props = {
   disabled: boolean;
@@ -10,14 +12,29 @@ type Props = {
 
 export const SettingsRestore: FC<Props> = ({ disabled }) => {
   const { t } = useTranslation();
-  const [showUpload, setShowUpload] = useState(false);
+
+  const restore = async () => {
+    try {
+      const selectedPath = await open({
+        multiple: false,
+        title: "Import data",
+      });
+
+      if (!selectedPath) return;
+      const contents = await readTextFile(selectedPath as string);
+      const body = JSON.parse(contents);
+      console.log("before");
+      await uploadConfiguration(body);
+      console.log("After");
+      window.location.reload();
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   return (
     <div>
-      {showUpload && (
-        <SettingsRestoreDialog onAfterClose={() => setShowUpload(false)} />
-      )}
-      <Button onClick={() => setShowUpload(true)} disabled={disabled}>
+      <Button onClick={restore}>
         <UploadOutlined /> {t("settings.restore.showUploadButton")}
       </Button>
     </div>

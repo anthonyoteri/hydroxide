@@ -1,5 +1,5 @@
 import { FormikProps } from "formik";
-import { FC } from "react";
+import React, { FC } from "react";
 import { Button, Card } from "antd";
 import { SaveOutlined } from "@ant-design/icons";
 
@@ -44,10 +44,14 @@ export const SettingsForm: FC<Props> = (props: Props) => {
             />
           }
         >
-          <FormikFieldInputNumber
-            name="retention_period_days"
-            label={t("settings.dialog.retentionPeriodDaysLabel")}
-          />
+          {false && (
+            <FormikFieldInputNumber
+              name="retention_period_days"
+              label={t("settings.dialog.retentionPeriodDaysLabel")}
+            />
+
+          )}
+
         </Card>
 
         {!hideAdvanced && (
@@ -61,9 +65,12 @@ export const SettingsForm: FC<Props> = (props: Props) => {
               />
             }
           >
-            <FormikFieldCheckbox name="align_timestamps">
-              {t("settings.dialog.alignTimestampsLabel")}
-            </FormikFieldCheckbox>
+            {false && (
+              <FormikFieldCheckbox name="align_timestamps">
+                {t("settings.dialog.alignTimestampsLabel")}
+              </FormikFieldCheckbox>
+            )}
+
           </Card>
         )}
       </fieldset>

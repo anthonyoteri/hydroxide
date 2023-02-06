@@ -123,7 +123,7 @@ pub struct TimeRecordForImport {
     pub start_time: DateTime<Utc>,
     #[ts(type = "Date")]
     pub stop_time: Option<DateTime<Utc>>,
-    pub total_seconds: u64,
+    pub total_seconds: Option<u64>,
     pub approved: bool,
 }
 

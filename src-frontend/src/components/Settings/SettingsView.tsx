@@ -51,18 +51,20 @@ export const SettingsView: FC = () => {
         onClose={() => showDrawer(false)}
         open={drawerOpen}
       >
-        <Card
-          className="settings-card"
-          bordered={true}
-          title={
-            <CardHeader
-              title={t("settings.backup.title")}
-              description={t("settings.backup.description") || ""}
-            />
-          }
-        >
-          <SettingsBackup />
-        </Card>
+        {false && (
+          <Card
+            className="settings-card"
+            bordered={true}
+            title={
+              <CardHeader
+                title={t("settings.backup.title")}
+                description={t("settings.backup.description") || ""}
+              />
+            }
+          >
+            <SettingsBackup />
+          </Card>
+        )}
 
         {true && (
           <Card

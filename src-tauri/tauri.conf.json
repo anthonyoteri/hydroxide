@@ -12,10 +12,14 @@
   "tauri": {
     "allowlist": {
       "fs": {
-        "scope": ["$APPLOCALDATA/hydroxide/*"]
+        "scope": ["$APPLOCALDATA/hydroxide/*"],
+        "readFile": true
       },
       "app": {
         "all": true
+      },
+      "dialog": {
+        "open": true
       }
     },
     "bundle": {
@@ -60,10 +64,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 960,
+        "height": 1200,
         "resizable": true,
-        "title": "Hydroxide (Time Tracking)",
-        "width": 1080
+        "title": "Hydra (Time Log)",
+        "width": 1600
       }
     ]
   }
