@@ -1,5 +1,9 @@
 import { createSlice, createSelector, PayloadAction } from "@reduxjs/toolkit";
-import { ModelMutateResultData, TimeRecord, TimeRecordDraft } from "../bindings";
+import {
+  ModelMutateResultData,
+  TimeRecord,
+  TimeRecordDraft,
+} from "../bindings";
 import { time_record_fmc } from "../model";
 import { AppThunk } from "./index";
 import { ApplicationState } from "../store/rootReducer";
@@ -33,7 +37,6 @@ export const timeRecordReducer = createSlice({
 export const { fetchSuccess, fetchFail } = timeRecordReducer.actions;
 
 export default timeRecordReducer.reducer;
-
 
 export const fetchRecords = (): AppThunk<Promise<void>> => async (dispatch) => {
   try {

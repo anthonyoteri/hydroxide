@@ -30,7 +30,7 @@ export const SettingsRestore: FC<Props> = ({ disabled }) => {
     } catch (err) {
       console.log(err);
     }
-  }
+  };
 
   return (
     <div>

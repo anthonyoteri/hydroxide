@@ -74,11 +74,11 @@ export const RecordTable: FC<Props> = (props: Props) => {
                 {t("records.declineAction")}
               </>
             )) || (
-                <>
-                  <CheckCircleOutlined />
-                  {t("records.approveAction")}
-                </>
-              )}
+              <>
+                <CheckCircleOutlined />
+                {t("records.approveAction")}
+              </>
+            )}
           </Menu.Item>
         )}
 
@@ -136,10 +136,18 @@ export const RecordTable: FC<Props> = (props: Props) => {
         return (
           <span>
             {record.stop_time
-              ? moment.duration(moment(record.stop_time).diff(moment(record.start_time), "seconds"), "seconds").humanize()
+              ? moment
+                  .duration(
+                    moment(record.stop_time).diff(
+                      moment(record.start_time),
+                      "seconds"
+                    ),
+                    "seconds"
+                  )
+                  .humanize()
               : moment(record.start_time) <= moment()
-                ? moment(record.start_time).fromNow(true)
-                : null}
+              ? moment(record.start_time).fromNow(true)
+              : null}
           </span>
         );
       },

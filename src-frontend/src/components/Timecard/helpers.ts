@@ -47,7 +47,10 @@ export const recordsForMonth = (
 export const aggregate = (records: TimeRecord[]) => {
   return records.reduce((agg, current) => {
     const o: any = { ...agg };
-    const duration = moment(current.stop_time).diff(moment(current.start_time), "seconds");
+    const duration = moment(current.stop_time).diff(
+      moment(current.start_time),
+      "seconds"
+    );
 
     if (!duration) {
       return o;
@@ -92,7 +95,10 @@ export const summarize = (records: TimeRecord[], days: moment.Moment[]) => {
 export const totalTime = (records: TimeRecord[]) => {
   return (
     records?.reduce(
-      (total, record) => (total += moment(record.stop_time).diff(moment(record.start_time), "seconds") || 0),
+      (total, record) =>
+        (total +=
+          moment(record.stop_time).diff(moment(record.start_time), "seconds") ||
+          0),
       0
     ) || 0
   );

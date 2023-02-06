@@ -1,9 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 import { getVersion, getName } from "@tauri-apps/api/app";
 
-import {
-  BranchesOutlined,
-} from "@ant-design/icons";
+import { BranchesOutlined } from "@ant-design/icons";
 
 export const AppVersion: FC<{}> = () => {
   const [appName, setAppName] = useState<string | undefined>(undefined);
@@ -20,7 +18,8 @@ export const AppVersion: FC<{}> = () => {
   return (
     <div data-testid="app_version" className="app-version">
       <div className="app-version-number">
-        <BranchesOutlined />{appName} V:{appVersion}
+        <BranchesOutlined />
+        {appName} V:{appVersion}
       </div>
     </div>
   );

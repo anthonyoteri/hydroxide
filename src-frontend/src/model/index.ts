@@ -41,7 +41,9 @@ class BaseFmc<M, C, U> {
   async create(data: C): Promise<ModelMutateResultData> {
     console.log(`Create::${this.#cmd_suffix}`, data);
     const serialized = this.serialize(data);
-    return ipc_invoke(`create_${this.#cmd_suffix}`, { data: JSON.parse(serialized) }).then((res) => {
+    return ipc_invoke(`create_${this.#cmd_suffix}`, {
+      data: JSON.parse(serialized),
+    }).then((res) => {
       return ensure_ModelMutateResultData(res.data);
     });
   }
@@ -49,11 +51,12 @@ class BaseFmc<M, C, U> {
   async update(id: string, data: U): Promise<ModelMutateResultData> {
     console.log(`Update::${this.#cmd_suffix}`, id, data);
     const serialized = this.serialize(data);
-    return ipc_invoke(`update_${this.#cmd_suffix}`, { id, data: JSON.parse(serialized) }).then(
-      (res) => {
-        return ensure_ModelMutateResultData(res.data);
-      }
-    );
+    return ipc_invoke(`update_${this.#cmd_suffix}`, {
+      id,
+      data: JSON.parse(serialized),
+    }).then((res) => {
+      return ensure_ModelMutateResultData(res.data);
+    });
   }
 
   async delete(id: string): Promise<ModelMutateResultData> {
@@ -89,7 +92,11 @@ class ProjectFmc extends BaseFmc<Project, ProjectDraft, ProjectDraft> {
 
 export const project_fmc = new ProjectFmc();
 
-class TimeRecordFmc extends BaseFmc<TimeRecord, TimeRecordDraft, TimeRecordDraft> {
+class TimeRecordFmc extends BaseFmc<
+  TimeRecord,
+  TimeRecordDraft,
+  TimeRecordDraft
+> {
   constructor() {
     super("time_record");
   }

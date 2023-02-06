@@ -57,4 +57,4 @@ export const selectSettings = (state: ApplicationState) =>
 
 export const uploadConfiguration = (data: any) => {
   return settings_fmc.importConfiguration(data);
-}
+};

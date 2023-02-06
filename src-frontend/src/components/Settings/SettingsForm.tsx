@@ -49,9 +49,7 @@ export const SettingsForm: FC<Props> = (props: Props) => {
               name="retention_period_days"
               label={t("settings.dialog.retentionPeriodDaysLabel")}
             />
-
           )}
-
         </Card>
 
         {!hideAdvanced && (
@@ -70,7 +68,6 @@ export const SettingsForm: FC<Props> = (props: Props) => {
                 {t("settings.dialog.alignTimestampsLabel")}
               </FormikFieldCheckbox>
             )}
-
           </Card>
         )}
       </fieldset>
