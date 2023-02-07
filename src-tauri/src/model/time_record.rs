@@ -179,6 +179,15 @@ impl TimeRecordBmc {
     }
 
     pub async fn create(ctx: Arc<Ctx>, data: TimeRecordForCreate) -> Result<ModelMutateResultData> {
+        if let Some(stop_time) = &data.stop_time {
+            log::info!(
+                "Adding record from {} to {}",
+                &data.start_time,
+                stop_time
+            );
+        } else {
+            log::info!("Starting new record at {}", &data.start_time);
+        }
         base::create(ctx, Self::ENTITY, data).await
     }
 
@@ -187,10 +196,13 @@ impl TimeRecordBmc {
         id: &str,
         data: TimeRecordForUpdate,
     ) -> Result<ModelMutateResultData> {
+        log::info!("Updating record with id {}", id);
+
         base::update(ctx, Self::ENTITY, id, data).await
     }
 
     pub async fn delete(ctx: Arc<Ctx>, id: &str) -> Result<ModelMutateResultData> {
+        log::info!("Deleting record with id {}", id);
         base::delete(ctx, Self::ENTITY, id).await
     }
 

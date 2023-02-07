@@ -26,6 +26,7 @@ parking_lot = "0.12.1"
 ts-rs = "6.2.1"
 chrono = "0.4.23"
 env_logger = "0.10.0"
+log = "0.4.17"
 
 [features]
 # by default Tauri runs in production mode

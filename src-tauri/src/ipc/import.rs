@@ -22,6 +22,8 @@ pub struct ImportParams {
 
 #[command]
 pub async fn import_data(app: AppHandle<Wry>, params: ImportParams) -> IpcResponse<()> {
+    log::trace!("import_data( params: {:?} )", params);
+
     match Ctx::from_app(app) {
         Ok(ctx) => {
             let existing_records = TimeRecordBmc::list(ctx.clone(), None)

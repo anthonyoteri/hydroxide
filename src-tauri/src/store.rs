@@ -1,15 +1,21 @@
 use crate::prelude::*;
 use crate::utils::{map, XTakeVal};
 use std::collections::BTreeMap;
+use std::fmt::Debug;
 use surrealdb::sql::{thing, Array, Datetime, Object, Value};
 use surrealdb::{Datastore, Session};
 
 mod try_froms;
 mod x_takes;
 
-pub trait Createable: Into<Value> {}
-pub trait Patchable: Into<Value> {}
-pub trait Filterable: Into<Value> {}
+pub trait Createable: Into<Value> + Debug {}
+pub trait Patchable: Into<Value> + Debug {}
+pub trait Filterable: Into<Value> + Debug {}
+
+pub enum UpdateType {
+    Merge,
+    Replace,
+}
 
 pub struct Store {
     ds: Datastore,
@@ -18,6 +24,8 @@ pub struct Store {
 
 impl Store {
     pub async fn new(path: &str, ns: &str, db: &str) -> Result<Self> {
+        log::info!("Creating new datastore at {}", path);
+
         Ok(Self {
             ds: Datastore::new(path).await?,
             ses: Session::for_db(ns, db),
@@ -25,6 +33,8 @@ impl Store {
     }
 
     pub async fn get(&self, tid: &str) -> Result<Object> {
+        log::trace!("store::get( tid: {:?} )", tid);
+
         let sql = "SELECT * FROM $th";
 
         let vars = map!["th".into() => thing(tid)?.into()];
@@ -34,6 +44,8 @@ impl Store {
     }
 
     pub async fn create<T: Createable>(&self, tb: &str, data: T) -> Result<String> {
+        log::trace!("store::create( tb: {:?}, data: {:?} )", tb, data);
+
         let sql = "CREATE type::table($tb) CONTENT $data RETURN id";
 
         let mut data: Object = W(data.into()).try_into()?;
@@ -44,6 +56,7 @@ impl Store {
             "tb".into() => tb.into(),
             "data".into() => Value::from(data)
         ];
+
         let ress = self.ds.execute(sql, &self.ses, Some(vars), false).await?;
         let first_val = ress
             .into_iter()
@@ -61,8 +74,14 @@ impl Store {
         }
     }
 
-    pub async fn merge<T: Patchable>(&self, tid: &str, data: T) -> Result<String> {
-        let sql = "UPDATE $th MERGE $data RETURN id";
+    pub async fn merge<T: Patchable>(&self, tid: &str, data: T, update_type: UpdateType) -> Result<String> {
+        log::trace!("store::merge( tid: {:?}, data: {:?} )", tid, data);
+
+        let sql = match update_type {
+            UpdateType::Merge => "UPDATE $th MERGE $data RETURN id",
+            UpdateType::Replace => "UPDATE $th CONTENT $data RETURN id",
+        };
+
         let vars = map![
             "th".into() => thing(tid)?.into(),
             "data".into() => data.into()
@@ -82,6 +101,8 @@ impl Store {
     }
 
     pub async fn delete(&self, tid: &str) -> Result<String> {
+        log::trace!("store::delete( tid: {:?} )", tid);
+
         let sql = "DELETE $th";
 
         let vars = map!["th".into() => thing(tid)?.into()];
@@ -96,6 +117,8 @@ impl Store {
     }
 
     pub async fn select(&self, tb: &str, filter: Option<Value>) -> Result<Vec<Object>> {
+        log::trace!("store::select( tb: {:?}, filter: {:?} )", tb, filter);
+
         let mut sql = String::from("SELECT * FROM type::table($tb)");
 
         let mut vars = BTreeMap::from([("tb".into(), tb.into())]);

@@ -1565,6 +1565,7 @@ version = "23.2.0"
 dependencies = [
  "chrono",
  "env_logger",
+ "log",
  "parking_lot",
  "serde",
  "serde_json",

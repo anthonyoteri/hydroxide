@@ -129,6 +129,8 @@ impl CategoryBmc {
     }
 
     pub async fn create(ctx: Arc<Ctx>, data: CategoryForCreate) -> Result<ModelMutateResultData> {
+        log::info!("Adding category {}", &data.name);
+
         base::create(ctx, Self::ENTITY, data).await
     }
 
@@ -137,10 +139,15 @@ impl CategoryBmc {
         id: &str,
         data: CategoryForUpdate,
     ) -> Result<ModelMutateResultData> {
-        base::update(ctx, Self::ENTITY, id, data).await
+        if let Some(name) = &data.name {
+            log::info!("Updating category with name {}", name);
+        }
+
+        base::merge(ctx, Self::ENTITY, id, data).await
     }
 
     pub async fn delete(ctx: Arc<Ctx>, id: &str) -> Result<ModelMutateResultData> {
+        log::info!("Deleting category with id {}", id);
         base::delete(ctx, Self::ENTITY, id).await
     }
 
