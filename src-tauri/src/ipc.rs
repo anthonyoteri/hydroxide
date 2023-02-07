@@ -20,10 +20,13 @@ mod response;
 mod time_record;
 
 // -- Re-exports
-pub use category::{create_category, update_category, get_category, list_categories, delete_category};
-pub use params::{CreateParams, UpdateParams, GetParams, ListParams, DeleteParams};
-pub use project::{create_project, update_project, get_project, list_projects, delete_project};
-pub use response::*;
-pub use time_record::{create_time_record, update_time_record, get_time_record, list_time_records, delete_time_record};
+pub use category::{
+    create_category, delete_category, get_category, list_categories, update_category,
+};
 pub use import::import_data;
-
+pub use params::{CreateParams, DeleteParams, GetParams, ListParams, UpdateParams};
+pub use project::{create_project, delete_project, get_project, list_projects, update_project};
+pub use response::*;
+pub use time_record::{
+    create_time_record, delete_time_record, get_time_record, list_time_records, update_time_record,
+};

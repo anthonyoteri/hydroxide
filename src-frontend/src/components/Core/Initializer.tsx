@@ -2,7 +2,6 @@ import { Button, Modal } from "antd";
 import React, { FC, ReactNode, useCallback, useEffect, useState } from "react";
 import { useAppDispatch } from "../../hooks";
 import { connect } from "react-redux";
-import { apiErrorMessage } from "../../api/errors";
 import { fetchCategories } from "../../store/categories";
 import { fetchProjects } from "../../store/projects";
 import { fetchRecords } from "../../store/timeRecords";
@@ -32,7 +31,7 @@ export const Initializer: FC<Props> = (props) => {
         setState("complete");
       })
       .catch((err) => {
-        setErrorMessage(apiErrorMessage(err));
+        setErrorMessage(err);
         setState("error");
       });
   }, [dispatch]);

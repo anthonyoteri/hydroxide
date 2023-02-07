@@ -6,8 +6,8 @@
 
 use crate::ipc::{
     create_category, create_project, create_time_record, delete_category, delete_project,
-    delete_time_record, get_category, get_project, get_time_record, list_categories, list_projects,
-    list_time_records, update_category, update_project, update_time_record, import_data,
+    delete_time_record, get_category, get_project, get_time_record, import_data, list_categories,
+    list_projects, list_time_records, update_category, update_project, update_time_record,
 };
 
 use crate::prelude::*;
@@ -23,11 +23,10 @@ mod prelude;
 mod store;
 mod utils;
 
-
 #[tokio::main]
 async fn main() -> Result<()> {
     env_logger::init();
-    
+
     let data_dir = tauri::api::path::local_data_dir().unwrap();
     let db_file = format!("file://{}/hydroxide/hydra.db", data_dir.display());
 

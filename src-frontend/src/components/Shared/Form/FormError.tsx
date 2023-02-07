@@ -1,10 +1,9 @@
 import { Alert } from "antd";
 import React, { FC, useState } from "react";
-import { ApiError } from "../../../api/errors";
 import { CaretRightOutlined, CaretDownOutlined } from "@ant-design/icons";
 
 export type FormErrorProps = {
-  error: ApiError | null;
+  error: Error | null;
   summary?: string | React.ReactNode;
 };
 
@@ -12,17 +11,8 @@ export const FormError: FC<FormErrorProps> = ({ error, summary }) => {
   const [expanded, setExpanded] = useState(false);
   if (!error) return null;
 
-  const getMessage = (err: ApiError) => {
-    switch (err.type) {
-      case "network":
-        return err.error;
-      case "server":
-        return err.errors.length
-          ? err.errors
-              .map((e) => (e.field ? e.field + ": " : "") + e.message)
-              .join("\n")
-          : null;
-    }
+  const getMessage = (err: Error) => {
+    return err;
   };
 
   const message = getMessage(error);
@@ -36,7 +26,6 @@ export const FormError: FC<FormErrorProps> = ({ error, summary }) => {
         {expanded ? <CaretDownOutlined /> : <CaretRightOutlined />}
       </span>{" "}
       {summary}
-      {expanded && <div>{message}</div>}
     </>
   ) : (
     message
@@ -44,7 +33,7 @@ export const FormError: FC<FormErrorProps> = ({ error, summary }) => {
 
   return message ? (
     <div style={{ marginTop: "12px" }}>
-      <Alert type="error" message={content} />
+      <Alert type="error" message={content.toString()} />
     </div>
   ) : null;
 };

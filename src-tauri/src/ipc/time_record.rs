@@ -4,7 +4,8 @@
 use super::{CreateParams, DeleteParams, GetParams, IpcResponse, ListParams, UpdateParams};
 use crate::ctx::Ctx;
 use crate::model::{
-    ModelMutateResultData, TimeRecord, TimeRecordBmc, TimeRecordFilter, TimeRecordForCreate, TimeRecordForUpdate,
+    ModelMutateResultData, TimeRecord, TimeRecordBmc, TimeRecordFilter, TimeRecordForCreate,
+    TimeRecordForUpdate,
 };
 use crate::prelude::*;
 use tauri::{command, AppHandle, Wry};

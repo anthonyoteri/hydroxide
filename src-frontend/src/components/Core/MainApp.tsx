@@ -1,5 +1,5 @@
 import { Layout } from "antd";
-import { FC } from "react";
+import React, { FC } from "react";
 import { Outlet } from "react-router";
 import Initializer from "./Initializer";
 

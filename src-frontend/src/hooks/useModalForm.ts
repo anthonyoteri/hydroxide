@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { ApiError } from "./../api/errors";
 
 type ModalFormState =
   | "pending"
@@ -20,7 +19,7 @@ export const useModalForm = ({
   onClose?: () => void;
 }) => {
   const [status, setStatus] = useState<ModalFormState>("pending");
-  const [error, setError] = useState<ApiError | null>(null);
+  const [error, setError] = useState<Error | null>(null);
 
   const handleAfterClose = () => {
     if (status === "cancelled") {

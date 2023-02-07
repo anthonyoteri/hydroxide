@@ -45,7 +45,7 @@
   "jest": {
     "resetMocks": false,
     "transformIgnorePatterns": [
-      "/node_modules/(?!(axios|antd|@ant-design|rc-.+?|@babel/runtime)).+(js|jsx)$"
+      "/node_modules/(?!(axios|antd|@ant-design|rc-.+?|@babel/runtime|@tauri-apps.*?|utils-min)).+(js|jsx)$"
     ]
   },
   "eslintConfig": {
@@ -72,7 +72,7 @@
     "@testing-library/react": "^13.1.1",
     "@testing-library/user-event": "^14.1.1",
     "@types/antd": "^1.0.0",
-    "@types/jest": "^27.4.1",
+    "@types/jest": "^27.5.2",
     "@types/lodash": "^4.14.182",
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.27",

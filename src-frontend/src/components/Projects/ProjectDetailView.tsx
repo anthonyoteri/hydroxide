@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { useSelector } from "react-redux";
 import { useParams, Navigate } from "react-router-dom";
 import { ApplicationState } from "../../store/rootReducer";

@@ -1,14 +1,14 @@
-use crate::{ctx::Ctx, model::TimeRecordForImportWithContext};
 use crate::prelude::*;
+use crate::{ctx::Ctx, model::TimeRecordForImportWithContext};
 use std::collections::BTreeMap;
 use tauri::{command, AppHandle, Wry};
 
 use serde::Deserialize;
 
 use crate::model::{
-    CategoryBmc, CategoryForCreate, CategoryForImport, ProjectBmc,
-    ProjectForCreate, ProjectForImport, ProjectForImportWithContext, TimeRecordBmc,
-    TimeRecordForImport, TimeRecordForCreate,
+    CategoryBmc, CategoryForCreate, CategoryForImport, ProjectBmc, ProjectForCreate,
+    ProjectForImport, ProjectForImportWithContext, TimeRecordBmc, TimeRecordForCreate,
+    TimeRecordForImport,
 };
 
 use super::IpcResponse;
@@ -24,9 +24,15 @@ pub struct ImportParams {
 pub async fn import_data(app: AppHandle<Wry>, params: ImportParams) -> IpcResponse<()> {
     match Ctx::from_app(app) {
         Ok(ctx) => {
-            let existing_records = TimeRecordBmc::list(ctx.clone(), None).await.unwrap_or(Vec::new());
-            let existing_projects = ProjectBmc::list(ctx.clone(), None).await.unwrap_or(Vec::new());
-            let existing_categories = CategoryBmc::list(ctx.clone(), None).await.unwrap_or(Vec::new());
+            let existing_records = TimeRecordBmc::list(ctx.clone(), None)
+                .await
+                .unwrap_or(Vec::new());
+            let existing_projects = ProjectBmc::list(ctx.clone(), None)
+                .await
+                .unwrap_or(Vec::new());
+            let existing_categories = CategoryBmc::list(ctx.clone(), None)
+                .await
+                .unwrap_or(Vec::new());
 
             // -- Delete all existing records.
             for r in existing_records {
@@ -59,13 +65,14 @@ pub async fn import_data(app: AppHandle<Wry>, params: ImportParams) -> IpcRespon
 
             // -- Restore projects.
             for value in params.projects {
-                let value_with_ctx = ProjectForImportWithContext { 
+                let value_with_ctx = ProjectForImportWithContext {
                     data: value.clone(),
                     ctx: category_id_map.clone(),
                 };
 
                 if let Ok(project_for_create) = ProjectForCreate::try_from(value_with_ctx) {
-                    if let Ok(response) = ProjectBmc::create(ctx.clone(), project_for_create).await {
+                    if let Ok(response) = ProjectBmc::create(ctx.clone(), project_for_create).await
+                    {
                         project_id_map.insert(value.id, response.id);
                     }
                 }
@@ -79,10 +86,12 @@ pub async fn import_data(app: AppHandle<Wry>, params: ImportParams) -> IpcRespon
                 };
 
                 if let Ok(record_for_create) = TimeRecordForCreate::try_from(value_with_ctx) {
-                    if TimeRecordBmc::create(ctx.clone(), record_for_create.clone()).await.is_err() {
+                    if TimeRecordBmc::create(ctx.clone(), record_for_create.clone())
+                        .await
+                        .is_err()
+                    {
                         println!("Error creating time record {:?}", &record_for_create);
                     }
-                    
                 }
             }
 

@@ -1,5 +1,5 @@
 import { Typography } from "antd";
-import { ReactNode } from "react";
+import React, { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 
 type Props = {

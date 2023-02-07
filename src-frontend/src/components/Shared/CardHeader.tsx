@@ -1,4 +1,4 @@
-import { FC, ReactNode } from "react";
+import React, { FC, ReactNode } from "react";
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import { Typography } from "antd";

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { Result } from "antd";
 import { useTranslation } from "react-i18next";
 import { WarningFilled } from "@ant-design/icons";

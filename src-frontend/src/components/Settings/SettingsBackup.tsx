@@ -1,9 +1,8 @@
 import { DownloadOutlined } from "@ant-design/icons";
 import { Button } from "antd";
 import { format } from "date-fns";
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { downloadConfiguration } from "../../api/Settings";
 
 type Props = {};
 
@@ -14,7 +13,8 @@ export const SettingsBackup: FC<Props> = (props) => {
   const download = async () => {
     try {
       setIsDownloading(true);
-      const json = await downloadConfiguration();
+      //const json = await downloadConfiguration();
+      const json = { data: "" }; // TODO: Placeholder
       const timestamp = format(new Date(), "yyyyLLddkkmmss");
       const url = window.URL.createObjectURL(
         new Blob([JSON.stringify(json.data, null, 2)])
