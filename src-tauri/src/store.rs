@@ -74,7 +74,12 @@ impl Store {
         }
     }
 
-    pub async fn merge<T: Patchable>(&self, tid: &str, data: T, update_type: UpdateType) -> Result<String> {
+    pub async fn merge<T: Patchable>(
+        &self,
+        tid: &str,
+        data: T,
+        update_type: UpdateType,
+    ) -> Result<String> {
         log::trace!("store::merge( tid: {:?}, data: {:?} )", tid, data);
 
         let sql = match update_type {

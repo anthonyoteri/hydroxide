@@ -94,18 +94,13 @@ impl From<CategoryFilter> for Value {
 
 impl Filterable for CategoryFilter {}
 
-#[derive(Deserialize, TS, Debug, Clone)]
-#[ts(export, export_to = "../src-frontend/src/bindings/")]
+#[derive(Deserialize, Debug, Clone)]
 pub struct CategoryForImport {
     pub id: usize,
     pub name: String,
     pub description: String,
     pub num_records: usize,
-
-    #[ts(type = "Date")]
     pub created: DateTime<Utc>,
-
-    #[ts(type = "Date")]
     pub updated: DateTime<Utc>,
     pub user: String,
 }

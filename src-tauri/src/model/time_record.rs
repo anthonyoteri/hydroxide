@@ -114,14 +114,11 @@ impl From<TimeRecordForUpdate> for Value {
 
 impl Patchable for TimeRecordForUpdate {}
 
-#[derive(Deserialize, TS, Debug, Clone)]
-#[ts(export, export_to = "../src-frontend/src/bindings/")]
+#[derive(Deserialize, Debug, Clone)]
 pub struct TimeRecordForImport {
     pub id: usize,
     pub project: usize,
-    #[ts(type = "Date")]
     pub start_time: DateTime<Utc>,
-    #[ts(type = "Date")]
     pub stop_time: Option<DateTime<Utc>>,
     pub total_seconds: Option<u64>,
     pub approved: bool,
@@ -180,11 +177,7 @@ impl TimeRecordBmc {
 
     pub async fn create(ctx: Arc<Ctx>, data: TimeRecordForCreate) -> Result<ModelMutateResultData> {
         if let Some(stop_time) = &data.stop_time {
-            log::info!(
-                "Adding record from {} to {}",
-                &data.start_time,
-                stop_time
-            );
+            log::info!("Adding record from {} to {}", &data.start_time, stop_time);
         } else {
             log::info!("Starting new record at {}", &data.start_time);
         }

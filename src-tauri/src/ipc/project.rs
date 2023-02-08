@@ -66,7 +66,7 @@ pub async fn list_projects(
     params: ListParams<ProjectFilter>,
 ) -> IpcResponse<Vec<Project>> {
     log::trace!("list_projects( params: {:?} )", params);
-    
+
     match Ctx::from_app(app) {
         Ok(ctx) => ProjectBmc::list(ctx, params.filter).await.into(),
         Err(_) => Err(Error::CtxFail).into(),

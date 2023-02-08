@@ -67,7 +67,7 @@ pub async fn list_categories(
     params: ListParams<CategoryFilter>,
 ) -> IpcResponse<Vec<Category>> {
     log::trace!("list_categories( params: {:?} )", params);
-    
+
     match Ctx::from_app(app) {
         Ok(ctx) => CategoryBmc::list(ctx, params.filter).await.into(),
         Err(_) => Err(Error::CtxFail).into(),

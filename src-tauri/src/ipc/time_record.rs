@@ -67,7 +67,7 @@ pub async fn list_time_records(
     params: ListParams<TimeRecordFilter>,
 ) -> IpcResponse<Vec<TimeRecord>> {
     log::trace!("list_time_records( params: {:?} )", params);
-    
+
     match Ctx::from_app(app) {
         Ok(ctx) => TimeRecordBmc::list(ctx, params.filter).await.into(),
         Err(_) => Err(Error::CtxFail).into(),

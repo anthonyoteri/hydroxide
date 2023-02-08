@@ -25,12 +25,23 @@ mod utils;
 
 #[tokio::main]
 async fn main() -> Result<()> {
+    // -- Determine if we are in debug or release mode
+    let is_release = !cfg!(debug_assertions);
+
     env_logger::init();
 
-    let data_dir = tauri::api::path::local_data_dir().unwrap();
-    let db_file = format!("file://{}/hydroxide/hydra.db", data_dir.display());
+    if !is_release {
+        log::info!("****************************************");
+        log::info!("* Hydroxide is currently in DEBUG Mode *");
+        log::info!("****************************************");
+    }
 
-    println!("Using db_file {db_file}");
+    let data_dir = tauri::api::path::local_data_dir().unwrap();
+    let db_file = match is_release {
+        true => format!("file://{}/hydroxide/hydra.db", data_dir.display()),
+        false => format!("file://{}/hydroxide/hydra-devel.db", data_dir.display()),
+    };
+    log::info!("Using db_file {db_file}");
 
     let store = Store::new(&db_file, "hydroxide", "hydroxide").await?;
     let store = Arc::new(store);

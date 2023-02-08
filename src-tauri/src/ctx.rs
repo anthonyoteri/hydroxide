@@ -12,8 +12,8 @@ use crate::event::HubEvent;
 use crate::prelude::*;
 use crate::store::Store;
 use serde::Serialize;
-use surrealdb::Transaction;
 use std::sync::Arc;
+use surrealdb::Transaction;
 use tauri::{AppHandle, Manager, Wry};
 
 pub struct Ctx {
@@ -43,7 +43,7 @@ impl Ctx {
     pub fn emit_hub_event<D: Serialize + Clone>(&self, hub_event: HubEvent<D>) {
         let _ = self.app_handle.emit_all("HubEvent", hub_event);
     }
-    
+
     pub async fn transaction(&self, write: bool) -> Result<Transaction> {
         let tx = self.store.transaction(write).await?;
         Ok(tx)

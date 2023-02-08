@@ -7,7 +7,7 @@
   },
   "package": {
     "productName": "hydroxide",
-    "version": "23.1.0"
+    "version": "1.0.0"
   },
   "tauri": {
     "allowlist": {
@@ -64,10 +64,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 1200,
+        "height": 800,
         "resizable": true,
         "title": "Hydra (Time Log)",
-        "width": 1600
+        "width": 1200
       }
     ]
   }
