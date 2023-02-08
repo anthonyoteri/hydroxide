@@ -3,7 +3,7 @@ use crate::utils::{map, XTakeVal};
 use std::collections::BTreeMap;
 use std::fmt::Debug;
 use surrealdb::sql::{thing, Array, Datetime, Object, Value};
-use surrealdb::{Datastore, Session};
+use surrealdb::{Datastore, Session, Transaction};
 
 mod try_froms;
 mod x_takes;
@@ -143,5 +143,10 @@ impl Store {
 
         // build the list of objects
         array.into_iter().map(|v| W(v).try_into()).collect()
+    }
+
+    pub async fn transaction(&self, write: bool) -> Result<Transaction> {
+        let tx = self.ds.transaction(write, false).await?;
+        Ok(tx)
     }
 }
