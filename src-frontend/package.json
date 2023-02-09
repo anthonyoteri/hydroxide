@@ -6,7 +6,6 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@tauri-apps/api": "^1.2.0",
     "antd": "^4.20.2",
-    "axios": "^1.2.5",
     "clsx": "^1.2.1",
     "craco": "^0.0.3",
     "craco-less": "^2.0.0",
