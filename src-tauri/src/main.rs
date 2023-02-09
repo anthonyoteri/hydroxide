@@ -37,10 +37,12 @@ async fn main() -> Result<()> {
     }
 
     let data_dir = tauri::api::path::local_data_dir().unwrap();
-    let db_file = match is_release {
-        true => format!("file://{}/hydroxide/hydra.db", data_dir.display()),
-        false => format!("file://{}/hydroxide/hydra-devel.db", data_dir.display()),
+    let db_file = if is_release {
+        format!("file://{}/hydroxide/hydra.db", data_dir.display())
+    } else {
+        format!("file://{}/hydroxide/hydra-devel.db", data_dir.display())
     };
+
     log::info!("Using db_file {db_file}");
 
     let store = Store::new(&db_file, "hydroxide", "hydroxide").await?;
