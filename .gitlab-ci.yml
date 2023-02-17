@@ -2,6 +2,7 @@
 stages:
   - test
   - build
+  - release
 
 cargo:test:
   stage: test
@@ -45,11 +46,25 @@ npm:test:
     - npx eslint --ext=.js,.jsx,.tx,.tsx --max-warnings=0
     - npx tsc --noEmit
     - npm test --runInBand
+
 tauri:build:
   stage: build
   only:
     refs:
       - merge_requests
+  cache:
+    paths:
+      - src-tauri/target
+      - src-frontend/node_modules
+  before_script:
+    - cargo install tauri-cli
+  script:
+    - cargo tauri build
+
+tauri:release:
+  stage: release
+  only:
+    refs:
       - tags
   cache:
     paths:
@@ -64,4 +79,3 @@ tauri:build:
       - src-tauri/target/release/hydroxide
       - src-tauri/target/release/bundle/deb/hydroxide*.deb
       - src-tauri/target/release/bundle/appimage/hydroxide*.AppImage
-
