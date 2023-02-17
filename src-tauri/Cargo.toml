@@ -1,6 +1,6 @@
 [package]
 name = "hydroxide"
-version = "0.1.0"
+version = "1.0.1"
 description = "A desktop time tracker"
 authors = ["Anthony Oter"]
 license = ""
