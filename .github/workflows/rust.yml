@@ -1,66 +1,57 @@
+---
 name: Rust
+
 on:
   pull_request:
 
-  permissions:
-    contents: read
-    pull-requests: write
+env:
+  RUSTFLAGS: -Dwarnings
+  CARGO_TERM_COLOR: always
 
-  env:
-    RUSTFLAGS: -Dwarnings
-    CARGO_TERM_COLOR: always
+jobs:
+  fmt:
+    name: Format
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src-tauri
+    steps:
+      - uses: actions:/checkout@v3
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: Run cargo clippy
+        run: cargo fmt --check --all
 
-  jobs:
-    fmt:
-      name: Format
-      runs-on: [ubuntu-latest]
-      defaults:
-        run:
-          working-directory: ./src-tauri
-      steps:
-        - uses: actions:/checkout@v3
-        - name: Setup Rust
-          uses: dtolnay/rust-toolchain@stable
-          with:
-            components: rustfmt
-        - uses: Swatinem/rust-cache@v2
-        - name: Run cargo clippy
-          run: cargo fmt --check
+  clippy:
+    name: Clippy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src-tauri
+    steps:
+      - uses: actions:/checkout@v3
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Run cargo clippy
+        run: cargo clippy --tests
 
-    clippy:
-      name: Clippy
-      runs-on: [ubuntu-latest]
-      defaults:
-        run:
-          working-directory: ./src-tauri
-      steps:
-        - uses: actions:/checkout@v3
-        - name: Setup Rust
-          uses: dtolnay/rust-toolchain@stable
-          with:
-            components: clippy
-        - uses: Swatinem/rust-cache@v2
-        - name: Run cargo clippy
-          run: cargo clippy --tests
-
-    test:
-      name: Test
-      runs-on: [ubuntu-latest]
-      defaults:
-        run:
-          working-directory: ./src-tauri
-      steps:
-        - uses: actions/checkout@v3
-        - name: Setup Rust
-          uses: dtolnay/rust-toolchain@stable
-        - uses: Swatinem/rust-cache@v2
-        - name: Run cargo test
-          run: cargo test
-
-    lint:
-      runs-on: [ubuntu-latest]
-      steps:
-        - uses: actions/checkout@v2
-          with:
-            fetch-depth: 0
-        
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src-tauri
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Run cargo test
+        run: cargo test
+      
