@@ -1,8 +1,10 @@
 name: Rust
 on:
-  push:
   pull_request:
-    branches: master
+
+  permissions:
+    contents: read
+    pull-requests: write
 
   env:
     RUSTFLAGS: -Dwarnings
@@ -11,7 +13,7 @@ on:
   jobs:
     fmt:
       name: Format
-      runs-on: ubuntu-latest
+      runs-on: [ubuntu-latest]
       defaults:
         run:
           working-directory: ./src-tauri
@@ -23,11 +25,11 @@ on:
             components: rustfmt
         - uses: Swatinem/rust-cache@v2
         - name: Run cargo clippy
-          run: cargo fmt --check --all
+          run: cargo fmt --check
 
     clippy:
       name: Clippy
-      runs-on: ubuntu-latest
+      runs-on: [ubuntu-latest]
       defaults:
         run:
           working-directory: ./src-tauri
@@ -43,7 +45,7 @@ on:
 
     test:
       name: Test
-      runs-on: ubuntu-latest
+      runs-on: [ubuntu-latest]
       defaults:
         run:
           working-directory: ./src-tauri
@@ -56,7 +58,7 @@ on:
           run: cargo test
 
     lint:
-      runs-on: ubuntu-latest
+      runs-on: [ubuntu-latest]
       steps:
         - uses: actions/checkout@v2
           with:
