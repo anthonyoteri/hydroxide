@@ -25,7 +25,7 @@ on:
             components: rustfmt
         - uses: Swatinem/rust-cache@v2
         - name: Run cargo clippy
-          run: cargo fmt --check
+          run: cargo fmt --check --all
 
     clippy:
       name: Clippy
