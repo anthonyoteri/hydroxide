@@ -1,0 +1,62 @@
+---
+name: Typescript
+
+on:
+  pull_request:
+    paths:
+      - "src-frontend/"
+
+jobs:
+  format:
+    name: Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.1
+      - name: Build
+        run: |
+          mkdir -p build
+          npm install
+        working-directory: ./src-frontend
+      - name: Run Prettier
+        run: npm run prettier
+        working-directory: ./src-frontend
+
+  lint:
+      name: Lint
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 20.3.1
+        - name: Build
+          run: |
+            mkdir -p build
+            npm install
+          working-directory: ./src-frontend
+        - name: Run ESLint
+          run: npx eslint --ext=.js,.jsx,.tx,.tsx --max-warnings=0
+          working-directory: ./src-frontend
+        - name: Run Typescript compile
+          run: npx tsc --noEmit
+          working-directory: ./src-frontend
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.1
+      - name: Build Frontend
+        run: |
+          mkdir -p build
+          npm install
+        working-directory: ./src-frontend
+      - name: Run Frontend tests
+        run: npm test --runInBand
+        working-directory: ./src-frontend

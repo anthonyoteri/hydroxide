@@ -1,16 +1,18 @@
 ---
-name: CI
+name: Rust
 
 on:
   pull_request:
+    paths:
+      - "src-tauri/"
 
 env:
   RUSTFLAGS: -Dwarnings
   CARGO_TERM_COLOR: always
 
 jobs:
-  rust-fmt:
-    name: Rust Format
+  format:
+    name: Format
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -26,25 +28,8 @@ jobs:
       - name: Run cargo fmt
         run: cargo fmt --check --all
 
-  ts-fmt:
-    name: Typescript Format
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20.3.1
-      - name: Build
-        run: |
-          mkdir -p build
-          npm install
-        working-directory: ./src-frontend
-      - name: Run Prettier
-        run: npm run prettier
-        working-directory: ./src-frontend
-
-  rust-lint:
-    name: Rust Lint
+  lint:
+    name: Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -66,28 +51,8 @@ jobs:
         run: cargo clippy --all --tests -- -Dclippy::all -Dclippy::pedantic
         working-directory: ./src-tauri
 
-  ts-lint:
-      name: Typescript Lint
-      runs-on: ubuntu-latest
-      steps:
-        - uses: actions/checkout@v3
-        - uses: actions/setup-node@v3
-          with:
-            node-version: 20.3.1
-        - name: Build
-          run: |
-            mkdir -p build
-            npm install
-          working-directory: ./src-frontend
-        - name: Run ESLint
-          run: npx eslint --ext=.js,.jsx,.tx,.tsx --max-warnings=0
-          working-directory: ./src-frontend
-        - name: Run Typescript compile
-          run: npx tsc --noEmit
-          working-directory: ./src-frontend
-
-  rust-test:
-    name: Rust Test
+  test:
+    name: Test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -112,23 +77,6 @@ jobs:
       - name: Run cargo test
         run: cargo test
         working-directory: ./src-tauri
-      - name: Run Frontend tests
-        run: npm test --runInBand
-        working-directory: ./src-frontend
-
-  ts-test:
-    name: Typescript Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20.3.1
-      - name: Build Frontend
-        run: |
-          mkdir -p build
-          npm install
-        working-directory: ./src-frontend
       - name: Run Frontend tests
         run: npm test --runInBand
         working-directory: ./src-frontend
