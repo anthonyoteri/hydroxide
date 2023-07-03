@@ -1,0 +1,134 @@
+---
+name: CI
+
+on:
+  pull_request:
+
+env:
+  RUSTFLAGS: -Dwarnings
+  CARGO_TERM_COLOR: always
+
+jobs:
+  rust-fmt:
+    name: Rust Format
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./src-tauri
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: rustfmt
+      - uses: Swatinem/rust-cache@v2
+      - name: Run cargo fmt
+        run: cargo fmt --check --all
+
+  ts-fmt:
+    name: Typescript Format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.1
+      - name: Build
+        run: |
+          mkdir -p build
+          npm install
+        working-directory: ./src-frontend
+      - name: Run Prettier
+        run: npm run prettier
+        working-directory: ./src-frontend
+
+  rust-lint:
+    name: Rust Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+      - name: Create frontend build directory
+        run: mkdir -p build
+        working-directory: ./src-frontend
+      - name: Run cargo clippy
+        run: cargo clippy --all --tests -- -Dclippy::all -Dclippy::pedantic
+        working-directory: ./src-tauri
+
+  ts-lint:
+      name: Typescript Lint
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 20.3.1
+        - name: Build
+          run: |
+            mkdir -p build
+            npm install
+          working-directory: ./src-frontend
+        - name: Run ESLint
+          run: npx eslint --ext=.js,.jsx,.tx,.tsx --max-warnings=0
+          working-directory: ./src-frontend
+        - name: Run Typescript compile
+          run: npx tsc --noEmit
+          working-directory: ./src-frontend
+
+  rust-test:
+    name: Rust Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Rust
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          profile: minimal
+      - uses: Swatinem/rust-cache@v2
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.1
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
+      - name: Build Frontend
+        run: |
+          mkdir -p build
+          npm install
+        working-directory: ./src-frontend
+      - name: Run cargo test
+        run: cargo test
+        working-directory: ./src-tauri
+      - name: Run Frontend tests
+        run: npm test --runInBand
+        working-directory: ./src-frontend
+
+  ts-test:
+    name: Typescript Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 20.3.1
+      - name: Build Frontend
+        run: |
+          mkdir -p build
+          npm install
+        working-directory: ./src-frontend
+      - name: Run Frontend tests
+        run: npm test --runInBand
+        working-directory: ./src-frontend
