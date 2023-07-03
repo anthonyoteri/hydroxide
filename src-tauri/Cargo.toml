@@ -1,8 +1,8 @@
 [package]
 name = "hydroxide"
-version = "1.0.1"
+version = "1.0.2"
 description = "A desktop time tracker"
-authors = ["Anthony Oter"]
+authors = ["Anthony Oteri"]
 license = ""
 repository = "https://gitlab.oteri.xyz/anthonyoteri/hydroxide"
 default-run = "hydroxide"
