@@ -1,11 +1,13 @@
 ---
 name: Release
 
+permissions:
+    contents: write
+
 on:
   push:
-    branches:
-      - master
-      - build-with-github
+    tags:
+      - '*'
 
 env:
   RUSTFLAGS: -Dwarnings
@@ -33,3 +35,11 @@ jobs:
           sudo apt-get install -y libgtk-3-dev libwebkit2gtk-4.0-dev libappindicator3-dev librsvg2-dev patchelf
       - name: Tauri Build
         run: cargo tauri build
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: target/release/bundle/appimage/hydroxide*.AppImage
+          tag: ${{ github.ref }}
+          overwrite: true
+          file_glob: true
