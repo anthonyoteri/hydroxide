@@ -4,7 +4,7 @@ name: Typescript
 on:
   pull_request:
     paths:
-      - "src-frontend/"
+      - "src-frontend/**"
 
 jobs:
   format:
