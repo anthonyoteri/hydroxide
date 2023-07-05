@@ -21,7 +21,7 @@ export function ProjectSelect({
   placeholder,
 }: Props) {
   const projects = useSelector((state: ApplicationState) =>
-    selectProjectsForCategory(state, category?.id)
+    selectProjectsForCategory(state, category?.id),
   );
 
   return (

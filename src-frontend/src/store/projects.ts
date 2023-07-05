@@ -82,7 +82,7 @@ export const patchProject =
 export const selectAllProjects = createSelector(
   (state: ApplicationState) => state.projects.allIds,
   (state: ApplicationState) => state.projects.byId,
-  (allIds, byId) => allIds.map((id) => byId[id])
+  (allIds, byId) => allIds.map((id) => byId[id]),
 );
 
 export const selectProjectsForCategory = createSelector(
@@ -93,5 +93,5 @@ export const selectProjectsForCategory = createSelector(
   (projects, category) =>
     category
       ? projects.filter((p: Project) => p.category === category)
-      : projects
+      : projects,
 );

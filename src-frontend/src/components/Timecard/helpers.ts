@@ -15,32 +15,32 @@ export const recordsForDay = (records: TimeRecord[], target: moment.Moment) => {
   return records.filter((r) =>
     moment(r.start_time).isBetween(
       target.clone().startOf("day"),
-      target.clone().endOf("day")
-    )
+      target.clone().endOf("day"),
+    ),
   );
 };
 
 export const recordsForWeek = (
   records: TimeRecord[],
-  target: moment.Moment
+  target: moment.Moment,
 ) => {
   return records.filter((r) =>
     moment(r.start_time).isBetween(
       target.clone().startOf("week"),
-      target.clone().endOf("week")
-    )
+      target.clone().endOf("week"),
+    ),
   );
 };
 
 export const recordsForMonth = (
   records: TimeRecord[],
-  target: moment.Moment
+  target: moment.Moment,
 ) => {
   return records.filter((r) =>
     moment(r.start_time).isBetween(
       target.clone().startOf("month"),
-      target.clone().endOf("month")
-    )
+      target.clone().endOf("month"),
+    ),
   );
 };
 
@@ -49,7 +49,7 @@ export const aggregate = (records: TimeRecord[]) => {
     const o: any = { ...agg };
     const duration = moment(current.stop_time).diff(
       moment(current.start_time),
-      "seconds"
+      "seconds",
     );
 
     if (!duration) {
@@ -72,7 +72,7 @@ export const aggregate = (records: TimeRecord[]) => {
 
 export const summarize = (records: TimeRecord[], days: moment.Moment[]) => {
   const data: { [key: string]: number }[] = days.map((d) =>
-    aggregate(recordsForDay(records, d))
+    aggregate(recordsForDay(records, d)),
   );
   const result: { [key: string]: { [key: string]: number } } = {};
 
@@ -99,7 +99,7 @@ export const totalTime = (records: TimeRecord[]) => {
         (total +=
           moment(record.stop_time).diff(moment(record.start_time), "seconds") ||
           0),
-      0
+      0,
     ) || 0
   );
 };

@@ -42,7 +42,7 @@ export const CategoryDialog: FC<Props> = (props: Props) => {
 
   const handleSubmit = async (
     category: CategoryFormData,
-    formikHelpers: FormikHelpers<CategoryFormData>
+    formikHelpers: FormikHelpers<CategoryFormData>,
   ) => {
     setStatus("saving");
     setError(null);

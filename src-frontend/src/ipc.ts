@@ -3,7 +3,7 @@ import { deepFreeze } from "utils-min";
 
 export async function ipc_invoke(
   method: string,
-  params?: object
+  params?: object,
 ): Promise<any> {
   const response: any = await invoke(method, { params });
 
