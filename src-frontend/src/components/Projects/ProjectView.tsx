@@ -29,7 +29,7 @@ export const ProjectView: FC = () => {
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [editingProject, setEditingProject] = useState<Project | undefined>(
-    undefined
+    undefined,
   );
   const [redirectProject, setRedirectProject] = useState<string | null>(null);
 
@@ -94,7 +94,7 @@ export const ProjectView: FC = () => {
             t("common.deleteConfirmation.notification", {
               type: "Project",
               name: project.name,
-            })
+            }),
           );
         } catch (err: any) {
           notification.error({

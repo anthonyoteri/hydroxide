@@ -87,14 +87,14 @@ export const patchRecord =
 export const selectAllRecords = createSelector(
   (state: ApplicationState) => state.records.allIds,
   (state: ApplicationState) => state.records.byId,
-  (allIds, byId) => allIds.map((id) => byId[id])
+  (allIds, byId) => allIds.map((id) => byId[id]),
 );
 
 export const selectRecordsForWeek = createSelector(
   [selectAllRecords, (state: ApplicationState, week: number) => week],
   (records, week) => {
     return records.filter(
-      (r: TimeRecord) => moment(r.start_time).isoWeek() === week
+      (r: TimeRecord) => moment(r.start_time).isoWeek() === week,
     );
-  }
+  },
 );

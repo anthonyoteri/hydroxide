@@ -54,7 +54,7 @@ export const RecordDialog: FC<Props> = (props: Props) => {
 
   const handleSubmit = async (
     record: RecordFormData,
-    formikHelpers: FormikHelpers<RecordFormData>
+    formikHelpers: FormikHelpers<RecordFormData>,
   ) => {
     setStatus("saving");
     setError(null);

@@ -82,5 +82,5 @@ export const patchCategory =
 
 export const selectAllCategories = createSelector(
   (state: ApplicationState) => state.categories,
-  ({ allIds, byId }) => allIds.map((id) => byId[id])
+  ({ allIds, byId }) => allIds.map((id) => byId[id]),
 );

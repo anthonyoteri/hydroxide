@@ -24,7 +24,7 @@ export interface FormikFieldWrapperProps extends FormikFieldProps {
   extra?: React.ReactNode | "string";
   labelExtra?: React.ReactNode | "string";
   children: (
-    props: FieldProps
+    props: FieldProps,
   ) => React.ReactElement | React.ReactElement[] | null;
 }
 

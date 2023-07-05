@@ -34,7 +34,7 @@ export const RecordView: FC = () => {
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [editingRecord, setEditingRecord] = useState<TimeRecord | undefined>(
-    undefined
+    undefined,
   );
 
   useEffect(() => {
@@ -88,7 +88,7 @@ export const RecordView: FC = () => {
             actions.patchRecord(record.id, {
               ...record,
               approved: !record?.approved,
-            })
+            }),
           );
           message.success(t("records.approvedConfirmation.notification"));
         } catch (err: any) {
@@ -142,7 +142,7 @@ export const RecordView: FC = () => {
             actions.patchRecord(record.id, {
               ...record,
               stop_time: now.toDate(),
-            })
+            }),
           );
           message.success(t("records.stopConfirmation.notification"));
         } catch (err: any) {
@@ -170,7 +170,7 @@ export const RecordView: FC = () => {
             t("common.deleteConfirmation.notification", {
               type: "Record",
               name: record.project,
-            })
+            }),
           );
         } catch (err: any) {
           notification.error({

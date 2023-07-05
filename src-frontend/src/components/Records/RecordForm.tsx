@@ -67,7 +67,7 @@ export const RecordForm: FC<Props> = ({ formik, type }) => {
             category={
               selectedCategory ||
               categories.find(
-                (c) => c.id === formik.getFieldProps("category").value
+                (c) => c.id === formik.getFieldProps("category").value,
               )
             }
             value={field.value}

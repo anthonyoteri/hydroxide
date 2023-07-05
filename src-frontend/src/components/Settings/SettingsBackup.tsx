@@ -17,7 +17,7 @@ export const SettingsBackup: FC<Props> = (props) => {
       const json = { data: "" }; // TODO: Placeholder
       const timestamp = format(new Date(), "yyyyLLddkkmmss");
       const url = window.URL.createObjectURL(
-        new Blob([JSON.stringify(json.data, null, 2)])
+        new Blob([JSON.stringify(json.data, null, 2)]),
       );
       const link = document.createElement("a");
       link.href = url;

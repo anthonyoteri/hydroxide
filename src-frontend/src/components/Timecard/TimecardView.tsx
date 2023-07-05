@@ -49,7 +49,7 @@ export const TimecardView: FC = () => {
         days={dateRange(target.isoWeekYear(), target.isoWeek())}
         dataSource={summarize(
           recordsForWeek(records, target),
-          dateRange(target.isoWeekYear(), target.isoWeek())
+          dateRange(target.isoWeekYear(), target.isoWeek()),
         )}
         totalSeconds={totalTime(recordsForWeek(records, target))}
       />

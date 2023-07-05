@@ -9,7 +9,7 @@ test("renders app without crashing", () => {
     render(
       <Provider store={store}>
         <App />
-      </Provider>
+      </Provider>,
     );
   });
 });

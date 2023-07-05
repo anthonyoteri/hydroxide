@@ -31,7 +31,7 @@ export function ToolbarGroup({
       className={clsx(
         "toolbar-group",
         align === "right" && "toolbar-group-right",
-        align === "center" && "toolbar-group-center"
+        align === "center" && "toolbar-group-center",
       )}
       {...rest}
     >

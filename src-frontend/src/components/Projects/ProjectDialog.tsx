@@ -45,7 +45,7 @@ export const ProjectDialog: FC<Props> = (props: Props) => {
 
   const handleSubmit = async (
     project: ProjectFormData,
-    formikHelpers: FormikHelpers<ProjectFormData>
+    formikHelpers: FormikHelpers<ProjectFormData>,
   ) => {
     setStatus("saving");
     setError(null);

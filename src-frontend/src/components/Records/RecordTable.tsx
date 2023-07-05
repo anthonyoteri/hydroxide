@@ -140,9 +140,9 @@ export const RecordTable: FC<Props> = (props: Props) => {
                   .duration(
                     moment(record.stop_time).diff(
                       moment(record.start_time),
-                      "seconds"
+                      "seconds",
                     ),
-                    "seconds"
+                    "seconds",
                   )
                   .humanize()
               : moment(record.start_time) <= moment()

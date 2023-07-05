@@ -6,7 +6,7 @@ type FormErrorContainer<T extends FormikValues> = {
 };
 
 export const parseErrors = <T extends FormikValues>(
-  err: Error
+  err: Error,
 ): FormErrorContainer<T> => {
   const formErrors: FormikErrors<T> = {};
 

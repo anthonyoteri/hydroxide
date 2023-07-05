@@ -34,7 +34,7 @@ class BaseFmc<M, C, U> {
   async get(id: string): Promise<M> {
     console.log(`Get::${this.#cmd_suffix}`, id);
     return ipc_invoke(`get_${this.#cmd_suffix}`, { id }).then(
-      (res) => res.data
+      (res) => res.data,
     );
   }
 

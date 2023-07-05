@@ -27,7 +27,7 @@ export const CategoryView: FC = () => {
   const [addModalOpen, setAddModalOpen] = useState<boolean>(false);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [editingCategory, setEditingCategory] = useState<Category | undefined>(
-    undefined
+    undefined,
   );
   const [redirectCategory, setRedirectCategory] = useState<string | null>(null);
 
@@ -92,7 +92,7 @@ export const CategoryView: FC = () => {
             t("common.deleteConfirmation.notification", {
               type: "Category",
               name: category.name,
-            })
+            }),
           );
         } catch (err: any) {
           notification.error({
