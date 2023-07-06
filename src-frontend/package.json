@@ -13,7 +13,7 @@
     "formik": "^2.4.2",
     "i18next": "^23.2.6",
     "i18next-browser-languagedetector": "^7.1.0",
-    "i18next-http-backend": "^2.2.0",
+    "i18next-http-backend": "^2.2.1",
     "immer": "^10.0.2",
     "jest": "^27.5.1",
     "jest-environment-jsdom": "^29.5.0",
