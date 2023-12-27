@@ -3,7 +3,7 @@
   "version": "1.0.2",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.7",
+    "@reduxjs/toolkit": "^2.0.1",
     "@tauri-apps/api": "^1.5.1",
     "antd": "^4.24.15",
     "clsx": "^2.0.0",
