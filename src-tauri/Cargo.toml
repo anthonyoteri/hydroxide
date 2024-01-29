@@ -25,7 +25,7 @@ surrealdb = { version = "1.0.0-beta.8", default_features=false, features = ["par
 parking_lot = "0.12.1"
 ts-rs = "7.1.1"
 chrono = "0.4.32"
-env_logger = "0.11.0"
+env_logger = "0.11.1"
 log = "0.4.20"
 
 [features]
