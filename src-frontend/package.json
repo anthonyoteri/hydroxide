@@ -30,7 +30,7 @@
     "styled-components": "^6.1.8",
     "tar": "^6.2.0",
     "ts-jest": "^27.1.4",
-    "utils-min": "^0.2.2"
+    "utils-min": "^0.2.3"
   },
   "scripts": {
     "lint": "eslint --ext=.js,.jsx,.tx,.tsx --max-warnings=0 src",
