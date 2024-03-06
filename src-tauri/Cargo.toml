@@ -24,7 +24,7 @@ serde_with_macros = "3.4.0"
 surrealdb = { version = "1.0.0-beta.8", default_features=false, features = ["parallel", "kv-rocksdb"] }
 parking_lot = "0.12.1"
 ts-rs = "7.1.1"
-chrono = "0.4.33"
+chrono = "0.4.35"
 env_logger = "0.11.1"
 log = "0.4.20"
 
