@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^2.1.0",
-    "@tauri-apps/api": "^1.5.1",
+    "@tauri-apps/api": "^1.5.3",
     "antd": "^4.24.15",
     "clsx": "^2.1.0",
     "craco": "^0.0.3",
