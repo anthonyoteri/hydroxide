@@ -18,7 +18,7 @@ tauri-build = { version = "1.5.1", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.5.4", features = ["app-all", "dialog-open", "fs-read-file"] }
-tokio = { version = "1.36.0", features = ["full"] }
+tokio = { version = "1.38.0", features = ["full"] }
 thiserror = "1.0.61"
 serde_with_macros = "3.4.0"
 surrealdb = { version = "1.0.0-beta.8", default_features=false, features = ["parallel", "kv-rocksdb"] }
